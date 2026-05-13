@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌿 紐西蘭南島 14 天</title>
+  <style>
+    :root {
+      --g-dark:  #2D6A4F; --g-mid: #40916C; --g-light: #74C69D; --g-pale: #D8F3DC;
+      --beige:   #F7F2E8; --sand: #EBE2CE; --sand-d: #C9B99A; --cream: #FFFDF6;
+      --td: #1B2D22; --tm: #4A5C4E; --tl: #8A9E8E;
+      --rd: #2C4F6A; --rm: #4A7C9E; --rl: #D4EAF7;
+      --amber: #F59E0B; --star: #F5A623;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--beige);color:var(--td);max-width:540px;margin:0 auto;min-height:100vh}
+
+    /* ── Header ── */
+    .hdr{background:linear-gradient(150deg,var(--g-dark),var(--g-mid));padding:18px 18px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 14px rgba(0,0,0,.2)}
+    .hdr-row{display:flex;align-items:center;gap:11px}
+    .hdr-leaf{font-size:28px;flex-shrink:0}
+    .hdr-t{color:#fff;font-size:18px;font-weight:700}
+    .hdr-s{color:rgba(255,255,255,.75);font-size:12px;margin-top:2px}
+    .day-pill{margin-left:auto;background:rgba(255,255,255,.18);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap}
+    .prog-wrap{margin-top:12px}
+    .prog-track{background:rgba(255,255,255,.22);border-radius:8px;height:5px;overflow:hidden}
+    .prog-fill{height:100%;background:var(--g-pale);border-radius:8px;transition:width .4s ease;width:0%}
+    .prog-lbl{color:rgba(255,255,255,.7);font-size:11px;margin-top:4px;text-align:right}
+
+    /* ── Region divider ── */
+    .reg-wrap{padding:14px 14px 4px}
+    .reg-div{display:flex;align-items:center;gap:10px}
+    .reg-div span{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tl);white-space:nowrap}
+    .reg-div::before,.reg-div::after{content:'';flex:1;height:1px;background:var(--sand-d);opacity:.5}
+
+    /* ── Days list ── */
+    .days-wrap{padding:6px 12px 28px;display:flex;flex-direction:column;gap:8px}
+
+    /* ── Day card ── */
+    .card{background:var(--cream);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(45,106,79,.1);transition:box-shadow .2s}
+    .card.open{box-shadow:0 5px 22px rgba(45,106,79,.18)}
+    .card.rainy .card-hdr{background:linear-gradient(135deg,var(--rd),var(--rm))}
+
+    /* ── Card header ── */
+    .card-hdr{background:linear-gradient(135deg,var(--g-mid),var(--g-light));padding:13px 15px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;transition:background .3s}
+    .day-badge{background:rgba(255,255,255,.26);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;flex-shrink:0}
+    .card-info{flex:1;min-width:0}
+    .card-title{color:#fff;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .card-meta{display:flex;gap:5px;margin-top:3px;flex-wrap:wrap}
+    .mbadge{font-size:10.5px;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9)}
+    .chev{color:rgba(255,255,255,.75);font-size:15px;flex-shrink:0;transition:transform .3s}
+    .card.open .chev{transform:rotate(180deg)}
+
+    /* ── Body ── */
+    .card-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+    .card-body.open{max-height:2400px}
+    .body-inner{padding:14px 14px 16px}
+
+    /* Weather toggle */
+    .wtog{display:flex;gap:5px;background:var(--sand);border-radius:11px;padding:4px;margin-bottom:14px}
+    .wbtn{flex:1;padding:7px 8px;border:none;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--tm)}
+    .wbtn.active.sunny{background:#F5A623;color:#fff;box-shadow:0 2px 6px rgba(245,166,35,.35)}
+    .wbtn.active.rainy{background:var(--rm);color:#fff;box-shadow:0 2px 6px rgba(74,124,158,.35)}
+
+    /* Section label */
+    .slbl{font-size:10px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--tl);margin-bottom:7px;margin-top:14px}
+    .slbl:first-of-type{margin-top:0}
+
+    /* ── Attraction item ── */
+    .attr-item{display:flex;align-items:flex-start;gap:9px;background:var(--beige);border-radius:11px;padding:10px 11px;cursor:pointer;text-decoration:none;transition:opacity .15s}
+    .attr-item:active{opacity:.75}
+    .card.rainy .attr-item{background:var(--rl)}
+    .attr-em{font-size:19px;flex-shrink:0;line-height:1.3}
+    .attr-body{flex:1;min-width:0}
+    .attr-top{display:flex;align-items:flex-start;gap:6px;justify-content:space-between}
+    .attr-name{font-size:13.5px;font-weight:600;color:var(--td);line-height:1.3;flex:1}
+    .attr-rating{display:flex;align-items:center;gap:3px;flex-shrink:0;margin-top:1px}
+    .star{color:var(--star);font-size:12px}
+    .rating-val{font-size:11.5px;font-weight:600;color:var(--tm)}
+    .rating-cnt{font-size:10.5px;color:var(--tl)}
+    .attr-note{font-size:12px;color:var(--tm);margin-top:3px;line-height:1.45}
+    .maps-hint{font-size:10.5px;color:var(--g-mid);margin-top:4px;display:flex;align-items:center;gap:3px}
+    .card.rainy .maps-hint{color:var(--rm)}
+
+    /* Transit connector */
+    .transit{display:flex;align-items:center;gap:8px;padding:3px 6px;margin:2px 0}
+    .transit-line{flex:1;height:1px;background:var(--sand-d);opacity:.4}
+    .transit-txt{font-size:11px;color:var(--tl);white-space:nowrap}
+
+    /* ── Restaurant item ── */
+    .rest-item{display:flex;align-items:flex-start;gap:9px;background:var(--sand);border-radius:11px;padding:9px 11px;cursor:pointer;text-decoration:none;transition:opacity .15s}
+    .rest-item:active{opacity:.75}
+    .card.rainy .rest-item{background:#e0eef7}
+    .rest-em{font-size:18px;flex-shrink:0;line-height:1.3}
+    .rest-body{flex:1;min-width:0}
+    .rest-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+    .rest-name{font-size:13px;font-weight:600;color:var(--td)}
+    .rest-type{font-size:10.5px;color:var(--tl);margin-top:2px}
+    .rest-note{font-size:11.5px;color:var(--tm);margin-top:3px;line-height:1.4}
+    .rest-list{display:flex;flex-direction:column;gap:6px}
+
+    /* ── Stay section ── */
+    .stay-box{background:var(--g-pale);border-radius:11px;padding:11px 13px}
+    .card.rainy .stay-box{background:var(--rl)}
+    .stay-town{font-size:13px;font-weight:700;color:var(--g-dark);margin-bottom:6px}
+    .card.rainy .stay-town{color:var(--rd)}
+    .stay-note{font-size:11.5px;color:var(--tm);margin-bottom:8px;line-height:1.45}
+    .stay-tiers{display:flex;flex-direction:column;gap:4px}
+    .stay-tier{display:flex;align-items:baseline;gap:7px}
+    .tier-tag{font-size:10px;font-weight:700;letter-spacing:.5px;background:rgba(45,106,79,.15);color:var(--g-dark);padding:2px 7px;border-radius:8px;flex-shrink:0;min-width:38px;text-align:center}
+    .card.rainy .tier-tag{background:rgba(74,124,158,.15);color:var(--rd)}
+    .tier-name{font-size:12.5px;color:var(--td);font-weight:500}
+    .tier-price{font-size:11px;color:var(--tl);margin-left:auto;flex-shrink:0}
+
+    /* Notes box */
+    .notes{background:var(--sand);border-radius:10px;padding:9px 11px;font-size:12px;color:var(--tm);line-height:1.55;border-left:3px solid var(--sand-d);margin-top:14px}
+    .card.rainy .notes{border-left-color:var(--rm)}
+
+    /* Footer */
+    .footer{text-align:center;padding:18px 16px 32px;color:var(--tl);font-size:11.5px;line-height:1.9}
+  </style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-row">
+    <span class="hdr-leaf">🌿</span>
+    <div><div class="hdr-t">紐西蘭南島 14 天</div><div class="hdr-s">基督城出發 · 環島精華路線</div></div>
+    <div class="day-pill" id="dayPill">— / 14</div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="prog-lbl" id="progLbl">點擊任一天展開行程</div>
+  </div>
+</header>
+
+<div id="appRoot"></div>
+
+<div class="footer">
+  📍 點擊景點 / 餐廳可直接跳轉 Google Maps<br>
+  🌿 資料為 JSON 格式，在 &lt;script&gt; 內編輯 tripData 即可擴充
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  TRIP DATA
+//  每個 attraction / restaurant 點擊後直接開啟 Google Maps
+// ═══════════════════════════════════════════════════════
+const tripData = { title:"紐西蘭南島 14 天", days:[
+{
+  day:1, title:"抵達基督城", location:"Christchurch", drive:"✈️ 抵達",
+  stay:{
+    town:"基督城市中心 Christchurch CBD",
+    note:"第一天抵達建議住市中心，方便步行至各景點與超市。",
+    options:[
+      {tier:"豪華", name:"The George Christchurch", nzd:"350–600"},
+      {tier:"中價", name:"Sudima Christchurch City", nzd:"150–250"},
+      {tier:"平價", name:"YHA Christchurch", nzd:"35–100"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🌸", name:"Botanic Gardens 植物園", note:"市中心免費公園，玫瑰園 + 溫室，推薦下午漫步", rating:4.7, reviews:"13K", maps:"https://maps.google.com/?q=Christchurch+Botanic+Gardens+New+Zealand", to_next:"步行 10min"},
+      {emoji:"🚃", name:"Christchurch Tram 復古電車", note:"17 個景點上下車，全程 50min，了解地震後重建歷史", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Christchurch+Tramway+New+Zealand", to_next:"步行 5min"},
+      {emoji:"🎭", name:"Re:START 貨櫃市集", note:"地震後重建的創意貨櫃街區，文創小店 + 咖啡廳聚集", rating:4.3, reviews:"2.5K", maps:"https://maps.google.com/?q=ReSTART+Container+Mall+Christchurch", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Bacon Brothers Coffee Co.", cuisine:"早餐 · 咖啡", note:"基督城人氣早午餐，培根蛋卷與咖啡一流", rating:4.6, reviews:"1.8K", maps:"https://maps.google.com/?q=Bacon+Brothers+Coffee+Christchurch"},
+      {emoji:"🍝", name:"C1 Espresso", cuisine:"午餐 · 紐西蘭料理", note:"獨特工業風，招牌真空管送餐，必體驗一次", rating:4.5, reviews:"5.2K", maps:"https://maps.google.com/?q=C1+Espresso+Christchurch"},
+      {emoji:"🥩", name:"The Bicycle Thief", cuisine:"晚餐 · 義式", note:"河岸邊義大利餐廳，義大利麵與牛排評價極高", rating:4.5, reviews:"2.1K", maps:"https://maps.google.com/?q=The+Bicycle+Thief+Christchurch"}
+    ],
+    supermarket:"Countdown Moorhouse Ave（大型，南城）/ Countdown City",
+    notes:"抵達後先換 NZ SIM（機場 Vodafone / Spark），取租車。建議第一晚不要安排太多行程，步行市區即可。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🧊", name:"International Antarctic Centre 南極體驗館", note:"模擬南極暴風雪 + 企鵝近距離，全室內", rating:4.5, reviews:"5.1K", maps:"https://maps.google.com/?q=International+Antarctic+Centre+Christchurch", to_next:"🚗 10min"},
+      {emoji:"🎨", name:"Christchurch Art Gallery（免費）", note:"當代藝術，建築本身是地標，下雨日最佳去處", rating:4.5, reviews:"3.8K", maps:"https://maps.google.com/?q=Christchurch+Art+Gallery+Te+Puna+o+Waiwhetu", to_next:"步行 8min"},
+      {emoji:"🌸", name:"植物園溫室（全天候）", note:"主溫室不受雨天影響，熱帶植物館有驚喜", rating:4.7, reviews:"13K", maps:"https://maps.google.com/?q=Christchurch+Botanic+Gardens+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Bacon Brothers Coffee Co.", cuisine:"早餐", note:"雨天暖身首選，咖啡品質穩定", rating:4.6, reviews:"1.8K", maps:"https://maps.google.com/?q=Bacon+Brothers+Coffee+Christchurch"},
+      {emoji:"🍜", name:"Little Poms", cuisine:"午餐 · 亞洲料理", note:"室內小館，碗麵與越南料理，雨天熱湯", rating:4.4, reviews:"900+", maps:"https://maps.google.com/?q=Little+Poms+Christchurch"},
+      {emoji:"🥩", name:"The Bicycle Thief", cuisine:"晚餐 · 義式", note:"室內寬敞舒適，雨天用餐體驗好", rating:4.5, reviews:"2.1K", maps:"https://maps.google.com/?q=The+Bicycle+Thief+Christchurch"}
+    ],
+    supermarket:"Countdown Moorhouse Ave",
+    notes:"雨天以室內文化體驗為主，Antarctic Centre 適合各年齡層，企鵝餵食時間請提前查官網。"
+  }
+},
+{
+  day:2, title:"基督城 → 蒂卡波湖", location:"Lake Tekapo", drive:"🚗 約 3h",
+  stay:{
+    town:"蒂卡波湖畔 Lake Tekapo Village",
+    note:"小鎮選擇有限，旺季（12–2月）提早 2 個月訂房，尤其星空導覽場次。",
+    options:[
+      {tier:"豪華", name:"Peppers Bluewater Resort", nzd:"280–450"},
+      {tier:"中價", name:"Lake Tekapo Scenic Resort", nzd:"150–250"},
+      {tier:"平價", name:"YHA Lake Tekapo", nzd:"38–110"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"💙", name:"Lake Tekapo 牛奶藍湖泊", note:"冰川融水造就的神秘藍，日出黃金時段最美", rating:4.9, reviews:"11K", maps:"https://maps.google.com/?q=Lake+Tekapo+New+Zealand", to_next:"步行 8min"},
+      {emoji:"⛪", name:"Church of the Good Shepherd 善良牧羊人教堂", note:"湖畔最具代表性拍照景點，下午光線最佳", rating:4.8, reviews:"25K", maps:"https://maps.google.com/?q=Church+of+the+Good+Shepherd+Lake+Tekapo", to_next:"🚗 15min"},
+      {emoji:"🌟", name:"Mt John Observatory 天文台（夜間）", note:"南半球最佳星空之一，導覽 NZD 145/人，需提前訂", rating:4.8, reviews:"4.5K", maps:"https://maps.google.com/?q=Mount+John+Observatory+Tekapo+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍣", name:"Kohan Restaurant", cuisine:"午餐 · 日式", note:"湖景絕佳，壽司 + 拉麵，本地人推薦的非典型選擇", rating:4.3, reviews:"1.9K", maps:"https://maps.google.com/?q=Kohan+Restaurant+Lake+Tekapo"},
+      {emoji:"🍺", name:"Mackenzie's Bar & Grill", cuisine:"晚餐 · 紐西蘭料理", note:"碳烤牛排 + 在地啤酒，份量足夠", rating:4.2, reviews:"1.1K", maps:"https://maps.google.com/?q=Mackenziess+Bar+Grill+Lake+Tekapo"}
+    ],
+    supermarket:"Four Square Tekapo（唯一補給點，早點去）",
+    notes:"蒂卡波是星空保護區，夜間幾乎零光害。Mt John 天文台導覽陰天取消退款，備案可泡 Tekapo Springs 戶外溫泉。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"♨️", name:"Tekapo Springs 溫泉", note:"戶外泡湯可撐傘觀湖，室內池也有，全天開放", rating:4.5, reviews:"2.5K", maps:"https://maps.google.com/?q=Tekapo+Springs+New+Zealand", to_next:"步行 5min"},
+      {emoji:"💙", name:"雨霧中的蒂卡波湖", note:"雲霧繚繞，湖色更神秘，適合拍藝術風格照片", rating:4.9, reviews:"11K", maps:"https://maps.google.com/?q=Lake+Tekapo+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍣", name:"Kohan Restaurant", cuisine:"午餐 · 日式", note:"雨天室內用餐，景觀座位搶手，提早入座", rating:4.3, reviews:"1.9K", maps:"https://maps.google.com/?q=Kohan+Restaurant+Lake+Tekapo"},
+      {emoji:"☕", name:"Pepe's Wine & Bar", cuisine:"晚餐 · 輕食", note:"小而溫馨，紅酒 + 起司盤，雨天最適合", rating:4.1, reviews:"600+", maps:"https://maps.google.com/?q=Pepes+Wine+Bar+Lake+Tekapo"}
+    ],
+    supermarket:"Four Square Tekapo",
+    notes:"陰天星空導覽必定取消但全額退款。Tekapo Springs 是雨天完美替代方案，可泡 2–3 小時非常放鬆。"
+  }
+},
+{
+  day:3, title:"蒂卡波湖 → 庫克山", location:"Aoraki / Mt Cook", drive:"🚗 約 1.5h",
+  stay:{
+    town:"Mt Cook Village（村內選擇極少）",
+    note:"⚠️ 村內無超市！所有食物請在蒂卡波備妥。旺季需提前 3 個月訂房。",
+    options:[
+      {tier:"豪華", name:"The Hermitage Hotel", nzd:"250–500+"},
+      {tier:"平價", name:"YHA Aoraki Mt Cook", nzd:"38–100"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🥾", name:"Kea Point Track 奇異鳥角步道", note:"輕鬆來回 2h，壯闊冰川景觀，適合熱身", rating:4.8, reviews:"2.8K", maps:"https://maps.google.com/?q=Kea+Point+Track+Mt+Cook+New+Zealand", to_next:"🚗 5min"},
+      {emoji:"🏔️", name:"Hooker Valley Track 胡克谷步道", note:"⭐紐西蘭最美步道之一，來回 10km 約 3h，終點有庫克山倒影湖", rating:4.9, reviews:"8.5K", maps:"https://maps.google.com/?q=Hooker+Valley+Track+Aoraki+Mt+Cook", to_next:"🚗 8min"},
+      {emoji:"🧊", name:"Tasman Glacier Viewpoint 塔斯曼冰川觀景台", note:"紐西蘭最長冰川，觀景台眺望，步行 20min", rating:4.7, reviews:"3.1K", maps:"https://maps.google.com/?q=Tasman+Glacier+Viewpoint+Mt+Cook", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍔", name:"Old Mountaineers' Café & Bar", cuisine:"午餐 + 晚餐 · 紐式料理", note:"Mt Cook 村唯一優質餐廳，漢堡 + 燉羊肉一流，強烈建議預約", rating:4.4, reviews:"1.2K", maps:"https://maps.google.com/?q=Old+Mountaineers+Cafe+Mt+Cook+New+Zealand"},
+      {emoji:"🍽️", name:"The Hermitage Panorama Room", cuisine:"晚餐 · 精緻料理", note:"百年飯店正餐廳，面向雪山景觀，價格較高但值得一試", rating:4.0, reviews:"800+", maps:"https://maps.google.com/?q=The+Hermitage+Hotel+Mt+Cook"}
+    ],
+    supermarket:"⚠️ 無超市。村內唯一小商店（Hermitage）售價昂貴，請在蒂卡波備妥所有食材",
+    notes:"Hooker Valley Track 需穿防水登山鞋。早出發（8am 前）人少且光線最美。海拔 760m，氣溫比平地低 5–10°C。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🎬", name:"Sir Edmund Hillary Alpine Centre", note:"室內電影院，庫克山攀登歷史紀錄片，震撼且感人", rating:4.6, reviews:"1.5K", maps:"https://maps.google.com/?q=Sir+Edmund+Hillary+Alpine+Centre+Mt+Cook", to_next:"步行 5min"},
+      {emoji:"🏛️", name:"Alpine Visitor Centre（DOC）", note:"免費展覽，了解庫克山地質 + 生態，室內等候天氣好轉", rating:4.6, reviews:"1.8K", maps:"https://maps.google.com/?q=Aoraki+Mt+Cook+Visitor+Centre+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍔", name:"Old Mountaineers' Café & Bar", cuisine:"午餐 + 晚餐", note:"雨天唯一去處，提早預約以防滿座", rating:4.4, reviews:"1.2K", maps:"https://maps.google.com/?q=Old+Mountaineers+Cafe+Mt+Cook+New+Zealand"}
+    ],
+    supermarket:"⚠️ 無超市，在蒂卡波備妥",
+    notes:"下雨時 Hooker Valley Track 路面濕滑仍可走，但強風則建議取消。Alpine Centre 影片每隔 90min 一場，先看展覽再等場次。"
+  }
+},
+{
+  day:4, title:"庫克山 → 克倫威爾 → 皇后鎮", location:"Queenstown", drive:"🚗 約 4h（翻越 Lindis Pass）",
+  stay:{
+    town:"皇后鎮 Queenstown",
+    note:"皇后鎮旺季（12–2月、6–8月滑雪季）住宿貴且搶手，提早 2 個月訂。",
+    options:[
+      {tier:"豪華", name:"Eichardt's Private Hotel", nzd:"500–900"},
+      {tier:"中價", name:"Novotel Queenstown", nzd:"200–350"},
+      {tier:"平價", name:"Nomads Queenstown Backpackers", nzd:"35–90"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🛣️", name:"Lindis Pass 高山公路（車窗景觀）", note:"海拔 971m，棕色丘陵草原如畫，停車拍照勿錯過", rating:4.7, reviews:"2.2K", maps:"https://maps.google.com/?q=Lindis+Pass+New+Zealand", to_next:"🚗 40min"},
+      {emoji:"🍎", name:"Cromwell 水果小鎮", note:"新鮮蘋果、桃子、杏桃 NZD 2–5/袋，路邊攤必停", rating:4.4, reviews:"1.5K", maps:"https://maps.google.com/?q=Cromwell+Fruit+Stalls+New+Zealand", to_next:"🚗 25min"},
+      {emoji:"🏘️", name:"Arrowtown 箭鎮（淘金小鎮）", note:"19 世紀淘金小鎮保留完整，秋天紅葉更美，Chinese Settlement 免費參觀", rating:4.6, reviews:"8.1K", maps:"https://maps.google.com/?q=Arrowtown+New+Zealand", to_next:"🚗 20min"},
+      {emoji:"🚠", name:"Skyline Gondola 空中纜車", note:"抵達皇后鎮後搭纜車俯瞰全城湖景，可加玩 Luge 滑車", rating:4.6, reviews:"12K", maps:"https://maps.google.com/?q=Skyline+Queenstown+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🥐", name:"Grain & Seed Café（Arrowtown）", cuisine:"午餐 · 紐式咖啡", note:"箭鎮最佳咖啡館，早午餐與甜點推薦", rating:4.5, reviews:"2.3K", maps:"https://maps.google.com/?q=Grain+and+Seed+Cafe+Arrowtown"},
+      {emoji:"🥩", name:"Rata Restaurant", cuisine:"晚餐 · 精緻紐西蘭料理", note:"皇后鎮知名主廚餐廳，在地食材，提前 2 週訂位", rating:4.5, reviews:"3.1K", maps:"https://maps.google.com/?q=Rata+Restaurant+Queenstown"}
+    ],
+    supermarket:"Countdown Queenstown（Remarkables Park 大型店）",
+    notes:"冬季（6–8月）Lindis Pass 可能結冰，需備雪鍊或租AWD車。Arrowtown停車免費，逛街約 1–1.5h。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🛣️", name:"Lindis Pass（車窗欣賞即可）", note:"雨天路面濕滑，減速慢行，雲霧中的山脈有另一種壯闊感", rating:4.7, reviews:"2.2K", maps:"https://maps.google.com/?q=Lindis+Pass+New+Zealand", to_next:"🚗 40min"},
+      {emoji:"🍎", name:"Cromwell 水果攤（有雨棚）", note:"即使下雨攤販仍營業，棚下輕鬆選購", rating:4.4, reviews:"1.5K", maps:"https://maps.google.com/?q=Cromwell+Fruit+Stalls+New+Zealand", to_next:"🚗 45min"},
+      {emoji:"🏘️", name:"Arrowtown 室內博物館", note:"Lakes District Museum 完全室內，淘金歷史展覽，NZD 10/人", rating:4.5, reviews:"1.8K", maps:"https://maps.google.com/?q=Lakes+District+Museum+Arrowtown", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🥐", name:"Grain & Seed Café（Arrowtown）", cuisine:"午餐", note:"雨天在溫暖的咖啡館午餐，先避雨再出發", rating:4.5, reviews:"2.3K", maps:"https://maps.google.com/?q=Grain+and+Seed+Cafe+Arrowtown"},
+      {emoji:"🍔", name:"Fergburger", cuisine:"晚餐 · 漢堡", note:"皇后鎮傳奇漢堡，雨天隊伍反而更短，必吃", rating:4.4, reviews:"18K", maps:"https://maps.google.com/?q=Fergburger+Queenstown"}
+    ],
+    supermarket:"Countdown Queenstown（Remarkables Park）",
+    notes:"雨天路程建議減少中途停留，安全抵達皇后鎮後整補休息，為後續行程做準備。"
+  }
+},
+{
+  day:5, title:"皇后鎮冒險體驗", location:"Queenstown", drive:"🅿️ 在地遊",
+  stay:{
+    town:"皇后鎮 Queenstown",
+    note:"連住兩晚，明天米爾福德峽灣需早起，請提早休息。",
+    options:[
+      {tier:"豪華", name:"Eichardt's Private Hotel", nzd:"500–900"},
+      {tier:"中價", name:"Novotel Queenstown", nzd:"200–350"},
+      {tier:"平價", name:"Nomads Queenstown", nzd:"35–90"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🪂", name:"Skydive Queenstown 高空跳傘", note:"15,000ft 俯瞰南阿爾卑斯山，NZD 299 起，需提前訂並確認天氣", rating:4.8, reviews:"6.2K", maps:"https://maps.google.com/?q=NZONE+Skydive+Queenstown", to_next:"🚗 10min"},
+      {emoji:"🌉", name:"Kawarau Bridge Bungee 笨豬跳", note:"世界第一座商業高空彈跳（43m），NZD 250，AJ Hackett 經典", rating:4.7, reviews:"7.1K", maps:"https://maps.google.com/?q=Kawarau+Bridge+Bungy+Queenstown", to_next:"🚗 15min"},
+      {emoji:"🌳", name:"Queenstown Gardens 皇后鎮花園", note:"湖邊免費公園，玫瑰園 + 飛盤高爾夫，放鬆散步必到", rating:4.6, reviews:"8.3K", maps:"https://maps.google.com/?q=Queenstown+Gardens+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Vudu Café & Larder", cuisine:"早餐 · 咖啡", note:"皇后鎮最佳早午餐，酪梨吐司與精品咖啡", rating:4.5, reviews:"4.8K", maps:"https://maps.google.com/?q=Vudu+Cafe+Queenstown"},
+      {emoji:"🍔", name:"Fergburger", cuisine:"午餐 · 漢堡", note:"永遠有隊，值得等。點 Big Al 或 Bun Laden", rating:4.4, reviews:"18K", maps:"https://maps.google.com/?q=Fergburger+Queenstown"},
+      {emoji:"🥩", name:"Botswana Butchery", cuisine:"晚餐 · 牛排", note:"湖景牛排餐廳，羔羊排是招牌，慶祝行程可預訂", rating:4.6, reviews:"3.9K", maps:"https://maps.google.com/?q=Botswana+Butchery+Queenstown"}
+    ],
+    supermarket:"Countdown Queenstown / Four Square Town Centre",
+    notes:"跳傘需天氣許可，隨時可能因風或雲改期。Bungee 排隊約 30–60min，早去早享受。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🎯", name:"Clip 'n Climb 室內攀岩", note:"室內攀岩樂園，多種難度，下雨日非常熱門，需提前預約", rating:4.4, reviews:"1.1K", maps:"https://maps.google.com/?q=Clip+n+Climb+Queenstown", to_next:"步行 5min"},
+      {emoji:"🎮", name:"Kiwi Birdlife Park 奇異鳥公園", note:"雨天仍可參觀，奇異鳥舍室內，倒下的大樹屋讓孩子喜歡", rating:4.5, reviews:"2.8K", maps:"https://maps.google.com/?q=Kiwi+Birdlife+Park+Queenstown", to_next:"步行 10min"},
+      {emoji:"🛍️", name:"The Mall 購物 + 紀念品", note:"雨天室內逛街，UGG 羊毛製品、麥盧卡蜂蜜、紐西蘭巧克力", rating:4.2, reviews:"900+", maps:"https://maps.google.com/?q=The+Mall+Queenstown", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Vudu Café & Larder", cuisine:"早餐", note:"先吃好早餐，再視天氣決定行程", rating:4.5, reviews:"4.8K", maps:"https://maps.google.com/?q=Vudu+Cafe+Queenstown"},
+      {emoji:"🍜", name:"Bao + Zao", cuisine:"午餐 · 亞洲料理", note:"亞洲融合小館，叉燒包 + 泰式咖哩，CP值高", rating:4.4, reviews:"1.6K", maps:"https://maps.google.com/?q=Bao+Zao+Queenstown"},
+      {emoji:"🥩", name:"Botswana Butchery", cuisine:"晚餐 · 牛排", note:"雨天在溫暖燈光下享用一頓好牛排", rating:4.6, reviews:"3.9K", maps:"https://maps.google.com/?q=Botswana+Butchery+Queenstown"}
+    ],
+    supermarket:"Countdown Queenstown",
+    notes:"跳傘和 Bungee 遇雨天可免費改期，直接聯繫業者。明天米爾福德峽灣如果下雨反而更美（詳見 Day 6）。"
+  }
+},
+{
+  day:6, title:"米爾福德峽灣日遊", location:"Milford Sound（from Queenstown）", drive:"🚗 來回約 6h",
+  stay:{
+    town:"皇后鎮 Queenstown（回程）",
+    note:"米爾福德峽灣日遊回到皇后鎮，不需要換住宿。回程約 18:00–19:00。",
+    options:[
+      {tier:"豪華", name:"Eichardt's Private Hotel", nzd:"500–900"},
+      {tier:"中價", name:"Novotel Queenstown", nzd:"200–350"},
+      {tier:"平價", name:"Nomads Queenstown", nzd:"35–90"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🌊", name:"Mirror Lakes 鏡湖（途中）", note:"單程路上必停，平靜水面完美倒映群山，早晨效果最佳", rating:4.5, reviews:"4.1K", maps:"https://maps.google.com/?q=Mirror+Lakes+Milford+Road+New+Zealand", to_next:"🚗 35min"},
+      {emoji:"💦", name:"The Chasm 峽谷瀑布（途中）", note:"短步道 20min，湍急溪流切割出的神秘地形", rating:4.7, reviews:"3.6K", maps:"https://maps.google.com/?q=The+Chasm+Milford+Sound+New+Zealand", to_next:"🚗 15min"},
+      {emoji:"⛰️", name:"Milford Sound 峽灣遊船", note:"⭐紐西蘭第一美景！2h 遊船，推薦 Real Journeys，提前 2–3 週訂", rating:4.9, reviews:"24K", maps:"https://maps.google.com/?q=Milford+Sound+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🥪", name:"自備午餐（強烈建議）", cuisine:"午餐 · 自備", note:"峽灣內幾乎無補給，遊船上有輕食但昂貴。前晚在超市備妥三明治", rating:0, reviews:"", maps:""},
+      {emoji:"🍽️", name:"Boat food on cruise（遊船輕食）", cuisine:"午餐 · 船上", note:"遊船提供簡餐，選擇少，建議補充自備食物", rating:3.8, reviews:"500+", maps:"https://maps.google.com/?q=Real+Journeys+Milford+Sound"},
+      {emoji:"🍺", name:"Rata Restaurant（回到皇后鎮）", cuisine:"晚餐 · 精緻料理", note:"長途回程後犒賞自己，提前預約", rating:4.5, reviews:"3.1K", maps:"https://maps.google.com/?q=Rata+Restaurant+Queenstown"}
+    ],
+    supermarket:"⚠️ 峽灣無超市，前晚在皇后鎮備妥",
+    notes:"早上 6:00 出發，單程 2.5–3h。遊船建議 12:00 或 13:30 班次。回程約 19:00 抵達皇后鎮。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🌊", name:"Mirror Lakes（雨天水面更清澈）", note:"輕雨時水面更平靜，倒影更完美，反而是最佳時機", rating:4.5, reviews:"4.1K", maps:"https://maps.google.com/?q=Mirror+Lakes+Milford+Road+New+Zealand", to_next:"🚗 35min"},
+      {emoji:"💦", name:"The Chasm（瀑布更壯觀）", note:"雨天水量暴增，峽谷水聲震耳欲聾，氣勢更磅礡", rating:4.7, reviews:"3.6K", maps:"https://maps.google.com/?q=The+Chasm+Milford+Sound+New+Zealand", to_next:"🚗 15min"},
+      {emoji:"⛰️", name:"Milford Sound 雨天 = 最佳觀賞時機！", note:"🌧 年降雨 182 天。雨天出現數百條臨時瀑布，動物更頻繁靠近遊船！千萬不要取消", rating:4.9, reviews:"24K", maps:"https://maps.google.com/?q=Milford+Sound+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🥪", name:"自備午餐（強烈建議）", cuisine:"午餐 · 自備", note:"下雨天在遊船甲板吃東西反而有趣，備好三明治", rating:0, reviews:"", maps:""},
+      {emoji:"🍺", name:"Rata Restaurant（回皇后鎮）", cuisine:"晚餐 · 精緻料理", note:"風雨後的暖食，提早預約", rating:4.5, reviews:"3.1K", maps:"https://maps.google.com/?q=Rata+Restaurant+Queenstown"}
+    ],
+    supermarket:"⚠️ 峽灣無超市，前晚備妥",
+    notes:"雨天開車去米爾福德請減速，山路濕滑。Homer Tunnel 前可能排隊 15–30min，預留時間。"
+  }
+},
+{
+  day:7, title:"皇后鎮 → 瓦納卡", location:"Wanaka", drive:"🚗 約 1–1.5h",
+  stay:{
+    town:"瓦納卡湖畔 Wanaka",
+    note:"比皇后鎮更幽靜，適合放鬆。湖邊住宿景觀極佳，旺季提前訂。",
+    options:[
+      {tier:"豪華", name:"Lakeside Apartments Wanaka", nzd:"300–500"},
+      {tier:"中價", name:"Wanaka Hotel", nzd:"150–250"},
+      {tier:"平價", name:"YHA Wanaka", nzd:"35–90"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🌲", name:"Wanaka Tree 孤獨的湖中樹", note:"紐西蘭最上鏡景點之一，日出或夕陽時分最美", rating:4.7, reviews:"15K", maps:"https://maps.google.com/?q=Wanaka+Tree+New+Zealand", to_next:"步行 10min"},
+      {emoji:"🧩", name:"Puzzling World 迷惑世界", note:"視覺錯覺博物館，室內外迷宮，大人小孩都愛，約 2h", rating:4.2, reviews:"4.1K", maps:"https://maps.google.com/?q=Puzzling+World+Wanaka", to_next:"🚗 15min"},
+      {emoji:"🏔️", name:"Roy's Peak Track 登山步道", note:"來回 16km 約 5–6h，頂峰俯瞰瓦納卡湖全景，清晨出發", rating:4.8, reviews:"6.4K", maps:"https://maps.google.com/?q=Roys+Peak+Track+Wanaka", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Ritual Coffee Roasters", cuisine:"早餐 · 咖啡", note:"瓦納卡最佳精品咖啡，豆子新鮮，拿鐵一流", rating:4.6, reviews:"2.1K", maps:"https://maps.google.com/?q=Ritual+Coffee+Roasters+Wanaka"},
+      {emoji:"🍝", name:"Francesca's Italian Kitchen", cuisine:"午餐 · 義式", note:"義大利麵 + 披薩，食材新鮮，位置在湖邊", rating:4.6, reviews:"3.2K", maps:"https://maps.google.com/?q=Francescas+Italian+Kitchen+Wanaka"},
+      {emoji:"🥗", name:"Bistro Gentil", cuisine:"晚餐 · 法式", note:"瓦納卡最高評分的晚餐，法式料理 + 南島葡萄酒", rating:4.5, reviews:"1.8K", maps:"https://maps.google.com/?q=Bistro+Gentil+Wanaka"}
+    ],
+    supermarket:"New World Wanaka（鎮上最大）",
+    notes:"Roy's Peak 需在 10 月–4 月之間走（冬季封山）。早上 6am 出發，避開人潮也避開正午烈日。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🌲", name:"Wanaka Tree 湖中樹（雨天更有氣氛）", note:"霧雨中的孤樹倒影特別有意境，記得帶傘", rating:4.7, reviews:"15K", maps:"https://maps.google.com/?q=Wanaka+Tree+New+Zealand", to_next:"步行 10min"},
+      {emoji:"🧩", name:"Puzzling World（全室內）", note:"下雨日完美去處，室內視覺錯覺 + 迷宮，2–3h", rating:4.2, reviews:"4.1K", maps:"https://maps.google.com/?q=Puzzling+World+Wanaka", to_next:"步行 5min"},
+      {emoji:"🎬", name:"Cinema Paradiso 特色電影院", note:"老沙發 + 間場供應餅乾，小眾經典電影，雨天必去", rating:4.6, reviews:"1.3K", maps:"https://maps.google.com/?q=Cinema+Paradiso+Wanaka", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Ritual Coffee Roasters", cuisine:"早餐", note:"雨天先來杯咖啡，看湖景等天氣", rating:4.6, reviews:"2.1K", maps:"https://maps.google.com/?q=Ritual+Coffee+Roasters+Wanaka"},
+      {emoji:"🍝", name:"Francesca's Italian Kitchen", cuisine:"午餐 · 義式", note:"下雨天吃義大利麵最溫暖，份量大", rating:4.6, reviews:"3.2K", maps:"https://maps.google.com/?q=Francescas+Italian+Kitchen+Wanaka"},
+      {emoji:"🥗", name:"Bistro Gentil", cuisine:"晚餐", note:"電影前後的晚餐", rating:4.5, reviews:"1.8K", maps:"https://maps.google.com/?q=Bistro+Gentil+Wanaka"}
+    ],
+    supermarket:"New World Wanaka",
+    notes:"Roy's Peak 下雨天禁止入山，務必在 DOC 官網確認開放狀態。Cinema Paradiso 場次請提前查詢。"
+  }
+},
+{
+  day:8, title:"瓦納卡 → 哈斯特峽谷 → 西海岸", location:"Fox Glacier Village", drive:"🚗 約 4.5h（Haast Pass）",
+  stay:{
+    town:"Fox Glacier Village 福克斯冰川小鎮",
+    note:"西海岸小鎮，選擇有限。提早訂房。明天繼續往北前往法蘭茲約瑟夫。",
+    options:[
+      {tier:"中價", name:"The Heartland Hotel Fox Glacier", nzd:"150–280"},
+      {tier:"平價", name:"Fox Glacier Holiday Park", nzd:"30–90"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"💧", name:"Blue Pools 藍色水潭（哈斯特路上）", note:"冰川融水形成的透明藍，吊橋步道來回 30min，必停", rating:4.7, reviews:"2.6K", maps:"https://maps.google.com/?q=Blue+Pools+Haast+Pass+New+Zealand", to_next:"🚗 1h"},
+      {emoji:"👀", name:"Knight's Point 觀景台", note:"西海岸開車必停，俯瞰塔斯曼海與懸崖，設有解說牌", rating:4.5, reviews:"1.6K", maps:"https://maps.google.com/?q=Knights+Point+Lookout+New+Zealand", to_next:"🚗 1.5h"},
+      {emoji:"🌊", name:"Ship Creek 雙步道（西海岸）", note:"雨林步道 + 沙丘步道共 1h，海岸線原始風貌", rating:4.5, reviews:"1.3K", maps:"https://maps.google.com/?q=Ship+Creek+Walk+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Wanaka 早餐後出發", cuisine:"早餐", note:"出發前在瓦納卡吃好早餐，路上補給點少", rating:0, reviews:"", maps:""},
+      {emoji:"🍔", name:"Fox Glacier Guiding Café", cuisine:"晚餐 · 輕食", note:"小鎮最佳選擇，漢堡 + 薯條，份量足夠", rating:4.0, reviews:"600+", maps:"https://maps.google.com/?q=Fox+Glacier+Guiding+New+Zealand"}
+    ],
+    supermarket:"Four Square Fox Glacier（唯一補給，備妥糧食）",
+    notes:"Haast Pass 全程 145km 沿塔斯曼海岸行駛，風景壯麗但路段較窄。建議留半天走路途中景點。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"💧", name:"Blue Pools（雨天水更藍）", note:"雨後水量增加，藍色更飽和，但吊橋走起來更刺激", rating:4.7, reviews:"2.6K", maps:"https://maps.google.com/?q=Blue+Pools+Haast+Pass+New+Zealand", to_next:"🚗 1h"},
+      {emoji:"🌊", name:"Haast 沿岸風光（車窗景觀）", note:"西海岸的雨有獨特壯闊感，沿途停車拍照", rating:4.5, reviews:"1.6K", maps:"https://maps.google.com/?q=Haast+Pass+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Wanaka 早餐後出發", cuisine:"早餐", note:"出發前補足能量，路途長且補給有限", rating:0, reviews:"", maps:""},
+      {emoji:"🍔", name:"Fox Glacier Guiding Café", cuisine:"晚餐", note:"長途開車後的暖食", rating:4.0, reviews:"600+", maps:"https://maps.google.com/?q=Fox+Glacier+Guiding+New+Zealand"}
+    ],
+    supermarket:"Four Square Fox Glacier",
+    notes:"Haast Pass 下雨仍可開車，但落石機率略增，留意 DOC 路況公告。路途長，請備妥車內零食與飲水。"
+  }
+},
+{
+  day:9, title:"西海岸冰川 + 法蘭茲約瑟夫", location:"Fox Glacier → Franz Josef", drive:"🚗 約 30min（兩個冰川之間）",
+  stay:{
+    town:"法蘭茲約瑟夫村 Franz Josef Village",
+    note:"兩個冰川小鎮相距僅 30min，可選其一作為基地。法蘭茲約瑟夫設施較多。",
+    options:[
+      {tier:"中價", name:"Rainforest Retreat Franz Josef", nzd:"150–280"},
+      {tier:"平價", name:"YHA Franz Josef", nzd:"35–90"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🧊", name:"Fox Glacier Walk 福克斯冰川步道", note:"冰川末端步道，來回 1.5h，壯觀但需注意落石警示區", rating:4.7, reviews:"8.2K", maps:"https://maps.google.com/?q=Fox+Glacier+Walk+New+Zealand", to_next:"🚗 10min"},
+      {emoji:"🪞", name:"Lake Matheson 倒影湖", note:"清晨最美！庫克山與南阿爾卑斯山完美倒影，步道 1h", rating:4.8, reviews:"5.3K", maps:"https://maps.google.com/?q=Lake+Matheson+New+Zealand", to_next:"🚗 30min"},
+      {emoji:"🧊", name:"Franz Josef Glacier Valley Walk", note:"法蘭茲冰川谷步道，來回 1.5h，可見冰川正面", rating:4.7, reviews:"9.1K", maps:"https://maps.google.com/?q=Franz+Josef+Glacier+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"The Matheson Café", cuisine:"早餐 · 咖啡", note:"Lake Matheson 旁的景觀咖啡館，早餐配倒影湖景絕美", rating:4.5, reviews:"2.8K", maps:"https://maps.google.com/?q=The+Matheson+Cafe+Fox+Glacier"},
+      {emoji:"🍺", name:"Landing Bar & Restaurant（Franz Josef）", cuisine:"晚餐 · 紐式料理", note:"法蘭茲約瑟夫最佳晚餐，豬肋排 + 在地啤酒", rating:4.0, reviews:"1.4K", maps:"https://maps.google.com/?q=Landing+Bar+Restaurant+Franz+Josef"}
+    ],
+    supermarket:"Four Square Franz Josef（有限補給）",
+    notes:"Lake Matheson 建議清晨 7–9am 前到達，無風時水面最平靜，倒影最完美。兩個冰川可以選一個為主、一個輕走。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🚁", name:"直升機冰川登頂（雨天唯一選項）", note:"降雨時地面路線可能封閉，直升機不受影響，能降落在冰川上", rating:4.8, reviews:"3.2K", maps:"https://maps.google.com/?q=The+Helicopter+Line+Franz+Josef", to_next:"🚗 10min"},
+      {emoji:"♨️", name:"Poly Hot Pools（Franz Josef）", note:"溫泉在雨天泡最舒服，室內 + 戶外池，約 1.5h", rating:4.3, reviews:"1.1K", maps:"https://maps.google.com/?q=Poly+Hot+Pools+Franz+Josef", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Speight's Landing Café", cuisine:"早午餐", note:"雨天在溫暖室內等待天氣變化", rating:3.9, reviews:"700+", maps:"https://maps.google.com/?q=Landing+Bar+Restaurant+Franz+Josef"},
+      {emoji:"🍺", name:"Landing Bar & Restaurant", cuisine:"晚餐", note:"雨夜在酒吧放鬆，蘑菇披薩評價不錯", rating:4.0, reviews:"1.4K", maps:"https://maps.google.com/?q=Landing+Bar+Restaurant+Franz+Josef"}
+    ],
+    supermarket:"Four Square Franz Josef",
+    notes:"冰川步道遇大雨 DOC 會封閉，直升機是最佳替代（NZD 300–450）。提早查詢天氣並預約直升機備案。"
+  }
+},
+{
+  day:10, title:"西海岸 → 霍基蒂卡 → 亞瑟山口", location:"Hokitika → Arthur's Pass", drive:"🚗 約 3.5h",
+  stay:{
+    town:"亞瑟山口 Arthur's Pass Village 或 基督城（可選）",
+    note:"若體力允許可直衝基督城，否則在亞瑟山口小屋過夜體驗高山環境。",
+    options:[
+      {tier:"中價", name:"Beachfront Hotel Hokitika（若在霍基蒂卡停）", nzd:"120–200"},
+      {tier:"平價", name:"Arthur's Pass Alpine Motel", nzd:"90–150"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"💎", name:"Hokitika Gorge 霍基蒂卡峽谷", note:"⭐ 驚艷的冰川藍綠水色，吊橋 + 步道來回 30min，拍照停留", rating:4.9, reviews:"8.7K", maps:"https://maps.google.com/?q=Hokitika+Gorge+New+Zealand", to_next:"🚗 15min"},
+      {emoji:"🌿", name:"Hokitika 玉石雕刻工坊", note:"西海岸是毛利玉石（Greenstone/Pounamu）重要產地，可現場觀看雕刻", rating:4.4, reviews:"1.5K", maps:"https://maps.google.com/?q=Hokitika+Greenstone+New+Zealand", to_next:"🚗 1h"},
+      {emoji:"🌊", name:"Devil's Punchbowl Waterfall 亞瑟山口瀑布", note:"短步道 30min，131m 高的瀑布近距離壯觀", rating:4.7, reviews:"3.2K", maps:"https://maps.google.com/?q=Devils+Punchbowl+Waterfall+Arthurs+Pass", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🥐", name:"Café 33（Hokitika）", cuisine:"午餐 · 咖啡", note:"霍基蒂卡最佳午餐，三明治 + 自製蛋糕，休息後繼續行程", rating:4.4, reviews:"1.1K", maps:"https://maps.google.com/?q=Cafe+33+Hokitika"},
+      {emoji:"🍽️", name:"Arthur's Pass Store & Tearoom", cuisine:"輕食 · 晚餐", note:"山口小村的唯一餐廳，湯與派，價格合理", rating:4.0, reviews:"500+", maps:"https://maps.google.com/?q=Arthurs+Pass+Store+New+Zealand"}
+    ],
+    supermarket:"Countdown Hokitika（大型補給站，南島中段最後一個大超市）",
+    notes:"Hokitika Gorge 水色受水位影響，藍色最濃時為晴天冰川融水多時。Countdown Hokitika 請大量補給，後段行程超市少。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"💎", name:"Hokitika Gorge（雨天水量更大）", note:"峽谷水流更湍急，水色更飽和，雨衣下仍值得去", rating:4.9, reviews:"8.7K", maps:"https://maps.google.com/?q=Hokitika+Gorge+New+Zealand", to_next:"步行 5min"},
+      {emoji:"🌿", name:"玉石雕刻工坊（全室內）", note:"下雨天最佳室內體驗，可自行設計並帶走紀念品", rating:4.4, reviews:"1.5K", maps:"https://maps.google.com/?q=Hokitika+Greenstone+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🥐", name:"Café 33（Hokitika）", cuisine:"午餐", note:"雨天室內午餐，補充能量後繼續往亞瑟山口", rating:4.4, reviews:"1.1K", maps:"https://maps.google.com/?q=Cafe+33+Hokitika"},
+      {emoji:"🍽️", name:"Arthur's Pass Store & Tearoom", cuisine:"晚餐", note:"山口暖湯暖身，大雨天份量顯得特別重要", rating:4.0, reviews:"500+", maps:"https://maps.google.com/?q=Arthurs+Pass+Store+New+Zealand"}
+    ],
+    supermarket:"Countdown Hokitika",
+    notes:"亞瑟山口下雨瀑布水量暴增，反而更壯觀。開車翻越山口請減速注意霧氣能見度。"
+  }
+},
+{
+  day:11, title:"亞瑟山口 → 基督城", location:"Christchurch", drive:"🚗 約 1.5–2h",
+  stay:{
+    town:"基督城市中心（返回）",
+    note:"回到基督城，準備後段凱庫拉行程或休整。機場附近住宿也是選項。",
+    options:[
+      {tier:"豪華", name:"The George Christchurch", nzd:"350–600"},
+      {tier:"中價", name:"Sudima Christchurch City", nzd:"150–250"},
+      {tier:"平價", name:"YHA Christchurch", nzd:"35–100"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🦜", name:"Arthur's Pass Village 山口小村", note:"出發前走走小村，Kea（高山鸚鵡）常在停車場現身", rating:4.8, reviews:"2.1K", maps:"https://maps.google.com/?q=Arthurs+Pass+Village+New+Zealand", to_next:"步行 20min"},
+      {emoji:"🌊", name:"Devil's Punchbowl Waterfall（若昨日未去）", note:"131m 瀑布，步道 30min，震撼水量", rating:4.7, reviews:"3.2K", maps:"https://maps.google.com/?q=Devils+Punchbowl+Waterfall+Arthurs+Pass", to_next:"🚗 1.5h"},
+      {emoji:"🌸", name:"基督城 Hagley Park 散步", note:"回城後漫步大公園，或逛 New Regent Street 街區", rating:4.7, reviews:"5.8K", maps:"https://maps.google.com/?q=Hagley+Park+Christchurch", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Arthur's Pass Store（早餐出發前）", cuisine:"早餐", note:"簡單的派 + 咖啡，補充能量後上路", rating:4.0, reviews:"500+", maps:"https://maps.google.com/?q=Arthurs+Pass+Store+New+Zealand"},
+      {emoji:"🍔", name:"Smash Palace（基督城）", cuisine:"午餐 · 美式", note:"廢棄飛機改造的酒吧，漢堡 + 現釀啤酒，氣氛獨特", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"},
+      {emoji:"🥩", name:"Gatherings", cuisine:"晚餐 · 農場料理", note:"基督城最佳農場料理，菜單隨季節更換", rating:4.6, reviews:"1.7K", maps:"https://maps.google.com/?q=Gatherings+Christchurch"}
+    ],
+    supermarket:"Countdown Moorhouse（回城後整補）",
+    notes:"亞瑟山口回基督城過 Otira Viaduct 觀景台，可停車俯瞰壯觀橋樑。Kea 鸚鵡好奇心強，請勿餵食。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🦜", name:"Arthur's Pass Village（雨天瀑布更多）", note:"整個山谷在大雨後出現數十條臨時瀑布，非常壯觀", rating:4.8, reviews:"2.1K", maps:"https://maps.google.com/?q=Arthurs+Pass+Village+New+Zealand", to_next:"🚗 1.5h"},
+      {emoji:"🎨", name:"Christchurch Art Gallery（回城）", cuisine:"", note:"午後在免費藝廊躲雨，展覽品質穩定", rating:4.5, reviews:"3.8K", maps:"https://maps.google.com/?q=Christchurch+Art+Gallery", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Arthur's Pass Store（早餐）", cuisine:"早餐", note:"暖身暖胃再上路", rating:4.0, reviews:"500+", maps:"https://maps.google.com/?q=Arthurs+Pass+Store+New+Zealand"},
+      {emoji:"🍔", name:"Smash Palace", cuisine:"午餐 · 美式", note:"室內風格強烈，雨天反而更有氣氛", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"},
+      {emoji:"🥩", name:"Gatherings", cuisine:"晚餐", note:"一頓好晚餐犒勞長途旅程", rating:4.6, reviews:"1.7K", maps:"https://maps.google.com/?q=Gatherings+Christchurch"}
+    ],
+    supermarket:"Countdown Moorhouse",
+    notes:"翻越亞瑟山口下雨能見度低，請開大燈減速，遇濃霧時路邊停車等待。"
+  }
+},
+{
+  day:12, title:"凱庫拉觀鯨", location:"Kaikoura", drive:"🚗 約 2.5h",
+  stay:{
+    town:"凱庫拉 Kaikoura",
+    note:"小鎮住宿選擇有限，觀鯨船預訂後再訂房。若隔日返回基督城，可選早場觀鯨後回城。",
+    options:[
+      {tier:"中價", name:"Kaikoura Retreat", nzd:"150–250"},
+      {tier:"平價", name:"Albatross Backpacker Inn", nzd:"35–80"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🐋", name:"Whale Watch Kaikoura 觀鯨船", note:"抹香鯨出沒率 95%+，3–4h，NZD 165/人。提前 4–6 週訂票", rating:4.7, reviews:"5.3K", maps:"https://maps.google.com/?q=Whale+Watch+Kaikoura+New+Zealand", to_next:"🚗 10min"},
+      {emoji:"🦭", name:"Point Kean 海狗群聚", note:"停車場旁即有大量毛皮海狗，免費近距離觀察，不要觸摸", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Point+Kean+Seal+Colony+Kaikoura", to_next:"步行 5min"},
+      {emoji:"🦞", name:"路邊 Crayfish 龍蝦攤", note:"凱庫拉龍蝦新鮮便宜，路邊攤價格遠低於餐廳，必試", rating:4.5, reviews:"2.1K", maps:"https://maps.google.com/?q=Kaikoura+Seafood+BBQ+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🦞", name:"Kaikoura Seafood BBQ（路邊攤）", cuisine:"午餐 · 海鮮", note:"現烤龍蝦 + 螃蟹，價格公道，路邊現點現吃", rating:4.6, reviews:"1.8K", maps:"https://maps.google.com/?q=Kaikoura+Seafood+BBQ"},
+      {emoji:"🥗", name:"Hislops Wholefood Café", cuisine:"晚餐 · 有機料理", note:"在地食材有機料理，蔬食友善，評價穩定", rating:4.5, reviews:"1.3K", maps:"https://maps.google.com/?q=Hislops+Cafe+Kaikoura"}
+    ],
+    supermarket:"Four Square Kaikoura（價格偏高，建議在基督城備妥）",
+    notes:"觀鯨船旺季極易售罄，建議提前 4–6 週訂。遇惡劣海況取消時有 80% 退款。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🐋", name:"觀鯨船（視海況決定）", note:"風浪過大會取消並退款。可改訂觀鯨直升機（NZD 185+）", rating:4.7, reviews:"5.3K", maps:"https://maps.google.com/?q=Whale+Watch+Kaikoura+New+Zealand", to_next:"🚗 10min"},
+      {emoji:"🦭", name:"Point Kean 海狗（風雨仍可去）", note:"海狗全天候在岸邊，雨天牠們懶懶的更好拍", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Point+Kean+Seal+Colony+Kaikoura", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🥗", name:"Hislops Wholefood Café", cuisine:"午餐 + 晚餐", note:"小鎮雨天最舒適的室內用餐選擇", rating:4.5, reviews:"1.3K", maps:"https://maps.google.com/?q=Hislops+Cafe+Kaikoura"}
+    ],
+    supermarket:"Four Square Kaikoura",
+    notes:"觀鯨直升機是雨天最佳備案（不受海況影響），但需提前預約並確認能見度。"
+  }
+},
+{
+  day:13, title:"馬爾堡酒莊巡禮", location:"Marlborough / Blenheim", drive:"🚗 約 1.5h",
+  stay:{
+    town:"馬爾堡 / 布倫亨 Blenheim",
+    note:"南島最後一個大城市行程。明日可直飛基督城或從布倫亨機場離境。",
+    options:[
+      {tier:"中價", name:"Scenic Hotel Marlborough", nzd:"150–250"},
+      {tier:"平價", name:"Blenheim Holiday Park", nzd:"35–80"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🍷", name:"Cloudy Bay 雲灣酒莊", note:"紐西蘭最知名白蘇維翁酒莊，品酒體驗 NZD 15–30", rating:4.6, reviews:"2.5K", maps:"https://maps.google.com/?q=Cloudy+Bay+Winery+Marlborough", to_next:"🚗 15min"},
+      {emoji:"🍷", name:"Wither Hills Winery", cuisine:"", note:"景觀超美的酒莊，戶外品酒台可俯瞰葡萄園全景", rating:4.5, reviews:"2.8K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough", to_next:"🚗 30min"},
+      {emoji:"🌿", name:"Pelorus Bridge Scenic Reserve", note:"古老雨林 + 清澈溪流，比霍比屯取景更天然，步道輕鬆", rating:4.7, reviews:"1.9K", maps:"https://maps.google.com/?q=Pelorus+Bridge+Scenic+Reserve+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍷", name:"Wither Hills Winery Restaurant", cuisine:"午餐 · 搭配品酒", note:"酒莊內用餐，白蘇維翁配起司盤", rating:4.5, reviews:"1.2K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough"},
+      {emoji:"🥩", name:"Twelve Trees Restaurant", cuisine:"晚餐 · 精緻料理", note:"馬爾堡最佳晚餐，羔羊 + 本地葡萄酒搭配", rating:4.5, reviews:"1.1K", maps:"https://maps.google.com/?q=Twelve+Trees+Restaurant+Marlborough"}
+    ],
+    supermarket:"New World Blenheim（大型，最後整補）",
+    notes:"馬爾堡酒莊品酒通常 NZD 10–30，購酒後可折抵。Cloudy Bay 需提前預約品酒體驗。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🍷", name:"Cloudy Bay 室內品酒（雨天照常）", note:"品酒室全程室內，雨天正好慢慢品味", rating:4.6, reviews:"2.5K", maps:"https://maps.google.com/?q=Cloudy+Bay+Winery+Marlborough", to_next:"🚗 15min"},
+      {emoji:"🍷", name:"Wither Hills Winery 室內品酒", note:"酒窖導覽 + 品酒，完全室內，下雨日完美選擇", rating:4.5, reviews:"2.8K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍷", name:"Wither Hills Winery Restaurant", cuisine:"午餐", note:"室內窗景仍優美，雨天品酒用餐", rating:4.5, reviews:"1.2K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough"},
+      {emoji:"🥩", name:"Twelve Trees Restaurant", cuisine:"晚餐", note:"旅程最後一頓好餐，值得精心品嚐", rating:4.5, reviews:"1.1K", maps:"https://maps.google.com/?q=Twelve+Trees+Restaurant+Marlborough"}
+    ],
+    supermarket:"New World Blenheim",
+    notes:"馬爾堡一年有 300 天晴天，雨天非常罕見。室內酒莊體驗依然充實。"
+  }
+},
+{
+  day:14, title:"返回基督城・旅程收尾", location:"Blenheim → Christchurch", drive:"🚗 約 2.5h 或 ✈️ 40min",
+  stay:{
+    town:"基督城機場附近（末日）",
+    note:"末日依航班時間彈性安排。布倫亨有小機場可直飛基督城（Air NZ，約 NZD 80+）。",
+    options:[
+      {tier:"中價", name:"Sudima Christchurch Airport（機場旁）", nzd:"150–220"},
+      {tier:"平價", name:"Airport Garden Court Motel", nzd:"90–140"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🌿", name:"Nelson 尼爾森（若順路）", note:"若時間允許，紐西蘭最陽光城市，藝術家聚集地，Queens Gardens 值得一逛", rating:4.6, reviews:"3.1K", maps:"https://maps.google.com/?q=Nelson+New+Zealand", to_next:"🚗 1.5h"},
+      {emoji:"🛍️", name:"基督城 New Regent Street 最後巡禮", note:"彩色西班牙建築街道，紀念品 + 咖啡廳，旅程最後購物", rating:4.6, reviews:"4.5K", maps:"https://maps.google.com/?q=New+Regent+Street+Christchurch", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"☕", name:"Morrison Street Café（Nelson）", cuisine:"早餐 · 咖啡（若順路）", note:"尼爾森最佳早午餐，若順道而行", rating:4.7, reviews:"2.9K", maps:"https://maps.google.com/?q=Morrison+Street+Cafe+Nelson"},
+      {emoji:"🍔", name:"Smash Palace（基督城）", cuisine:"午餐・再見美食", note:"最後一頓基督城名店，與旅伴一起乾杯", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"}
+    ],
+    supermarket:"Countdown Christchurch Airport（買機場伴手禮）",
+    notes:"確認退租車時間與機場 drop-off 規定。建議在 check-in 前 2.5h 抵達機場。麥盧卡蜂蜜建議在超市買，比機場便宜。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🛍️", name:"基督城室內購物・最後巡禮", note:"Riccarton Mall 大型室內商場，最後一輪 UGG + 蜂蜜 + 羊毛採購", rating:4.2, reviews:"2.8K", maps:"https://maps.google.com/?q=Westfield+Riccarton+Christchurch", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍔", name:"Smash Palace", cuisine:"午餐・最後告別", note:"旅程最後一頓，雨天正好待在室內回憶旅程", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"}
+    ],
+    supermarket:"Countdown Airport",
+    notes:"末日下雨不遺憾，室內購物 + 整理行李 + 慢慢用餐，是完美的旅程收尾方式。"
+  }
+}
+]};
+
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+const S = { open: null, wx: {} };
+
+function toggleDay(n){ S.open = S.open===n ? null : n; render(); }
+function setWx(n,m){ S.wx[n]=m; render(); }
+
+function mapsClick(url, e){
+  e.stopPropagation();
+  if(url) window.open(url, '_blank');
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER HELPERS
+// ═══════════════════════════════════════════════════════
+function stars(r){ return r>0 ? `<span class="star">★</span><span class="rating-val">${r}</span>` : ''; }
+function reviewTxt(r){ return r ? `<span class="rating-cnt">(${r})</span>` : ''; }
+function mapsIcon(url){ return url ? `<span class="maps-hint">📍 地圖</span>` : ''; }
+
+function renderAttr(a, isRainy){
+  const clickable = a.maps ? `onclick="mapsClick('${a.maps}',event)"` : '';
+  return `
+    <div class="attr-item" ${clickable} role="${a.maps?'link':''}" tabindex="${a.maps?0:-1}">
+      <span class="attr-em">${a.emoji}</span>
+      <div class="attr-body">
+        <div class="attr-top">
+          <span class="attr-name">${a.name}</span>
+          <span class="attr-rating">${stars(a.rating)} ${reviewTxt(a.reviews)}</span>
+        </div>
+        <div class="attr-note">${a.note}</div>
+        ${mapsIcon(a.maps)}
+      </div>
+    </div>
+    ${a.to_next ? `<div class="transit"><div class="transit-line"></div><span class="transit-txt">↕ ${a.to_next}</span><div class="transit-line"></div></div>` : ''}
+  `;
+}
+
+function renderRest(r){
+  const clickable = r.maps ? `onclick="mapsClick('${r.maps}',event)"` : '';
+  return `
+    <div class="rest-item" ${clickable} role="${r.maps?'link':''}" tabindex="${r.maps?0:-1}">
+      <span class="rest-em">${r.emoji}</span>
+      <div class="rest-body">
+        <div class="rest-top">
+          <div>
+            <div class="rest-name">${r.name}</div>
+            <div class="rest-type">${r.cuisine}</div>
+          </div>
+          <span class="attr-rating">${stars(r.rating)} ${reviewTxt(r.reviews)}</span>
+        </div>
+        <div class="rest-note">${r.note}</div>
+        ${mapsIcon(r.maps)}
+      </div>
+    </div>
+  `;
+}
+
+function renderStay(stay, isRainy){
+  const tiers = stay.options.map(o=>`
+    <div class="stay-tier">
+      <span class="tier-tag">${o.tier}</span>
+      <span class="tier-name">${o.name}</span>
+      <span class="tier-price">NZD ${o.nzd}</span>
+    </div>`).join('');
+  return `
+    <div class="stay-box">
+      <div class="stay-town">🏨 ${stay.town}</div>
+      ${stay.note ? `<div class="stay-note">${stay.note}</div>` : ''}
+      <div class="stay-tiers">${tiers}</div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+//  MAIN RENDER
+// ═══════════════════════════════════════════════════════
+function render(){
+  const root = document.getElementById('appRoot');
+  let html = '<div class="reg-wrap"><div class="reg-div"><span>🏔️ 南島行程</span></div></div><div class="days-wrap">';
+
+  tripData.days.forEach(day=>{
+    const isOpen  = S.open === day.day;
+    const wx      = S.wx[day.day] || 'sunny';
+    const isRainy = wx === 'rainy';
+    const plan    = day[wx];
+
+    const attrs   = plan.attractions.map(a=>renderAttr(a,isRainy)).join('');
+    const rests   = plan.restaurants.map(r=>renderRest(r)).join('');
+
+    html += `
+    <div class="card${isOpen?' open':''}${isRainy?' rainy':''}">
+      <div class="card-hdr" onclick="toggleDay(${day.day})">
+        <div class="day-badge">Day ${day.day}</div>
+        <div class="card-info">
+          <span class="card-title">${day.title}</span>
+          <div class="card-meta">
+            <span class="mbadge">${day.drive}</span>
+            ${isRainy?'<span class="mbadge">🌧 備案</span>':''}
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="card-body${isOpen?' open':''}">
+        <div class="body-inner">
+          <div class="wtog">
+            <button class="wbtn sunny${wx==='sunny'?' active':''}" onclick="setWx(${day.day},'sunny');event.stopPropagation()">☀️ 晴天</button>
+            <button class="wbtn rainy${wx==='rainy'?' active':''}" onclick="setWx(${day.day},'rainy');event.stopPropagation()">🌧 下雨了</button>
+          </div>
+
+          <div class="slbl">📍 景點行程</div>
+          ${attrs}
+
+          <div class="slbl">🍽️ 推薦餐廳</div>
+          <div class="rest-list">${rests}</div>
+
+          <div class="slbl">🏨 今晚住宿建議</div>
+          ${renderStay(day.stay, isRainy)}
+
+          <div class="notes">🛒 超市：${plan.supermarket}<br><br>💡 ${plan.notes}</div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  html += '</div>';
+  root.innerHTML = html;
+  updateHeader();
+}
+
+function updateHeader(){
+  const viewed = new Set([...Object.keys(S.wx).map(Number), ...(S.open?[S.open]:[])]).size;
+  const rainy  = Object.values(S.wx).filter(v=>v==='rainy').length;
+  document.getElementById('progFill').style.width = Math.min(Math.round(viewed/14*100),100)+'%';
+  document.getElementById('dayPill').textContent  = S.open ? `Day ${S.open} / 14` : '— / 14';
+  document.getElementById('progLbl').textContent  =
+    S.open ? `Day ${S.open} 已展開${rainy?` · ${rainy} 天切換備案`:''}` :
+    viewed  ? `已查看 ${viewed} / 14 天` : '點擊任一天展開行程';
+}
+
+render();
+</script>
+</body>
+</html>
