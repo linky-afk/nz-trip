@@ -116,6 +116,13 @@
     .notes{background:var(--sand);border-radius:10px;padding:9px 11px;font-size:12px;color:var(--tm);line-height:1.55;border-left:3px solid var(--sand-d);margin-top:14px}
     .card.rainy .notes{border-left-color:var(--rm)}
 
+    /* ── Photo strip ── */
+    .photo-strip{display:flex;gap:7px;overflow-x:auto;padding:6px 0 4px;scrollbar-width:none;margin-top:6px}
+    .photo-strip::-webkit-scrollbar{display:none}
+    .photo-thumb{width:120px;height:80px;object-fit:cover;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,var(--sand),var(--sand-d));cursor:pointer;transition:opacity .15s}
+    .photo-thumb:active{opacity:.8}
+    .photo-ph{width:120px;height:80px;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,var(--g-pale),var(--sand));display:flex;align-items:center;justify-content:center;font-size:22px}
+
     /* Footer */
     .footer{text-align:center;padding:18px 16px 32px;color:var(--tl);font-size:11.5px;line-height:1.9}
   </style>
@@ -160,7 +167,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   },
   sunny:{
     attractions:[
-      {emoji:"🌸", name:"Botanic Gardens 植物園", note:"市中心免費公園，玫瑰園 + 溫室，推薦下午漫步", rating:4.7, reviews:"13K", maps:"https://maps.google.com/?q=Christchurch+Botanic+Gardens+New+Zealand", to_next:"步行 10min"},
+      {emoji:"🌸", name:"Botanic Gardens 植物園", note:"市中心免費公園，玫瑰園 + 溫室，推薦下午漫步", rating:4.7, reviews:"13K", maps:"https://maps.google.com/?q=Christchurch+Botanic+Gardens+New+Zealand", to_next:"步行 10min", photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/ChristchurchBotanicGardens.jpg/640px-ChristchurchBotanicGardens.jpg","https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Christchurch_Botanic_Gardens_rose_garden.jpg/640px-Christchurch_Botanic_Gardens_rose_garden.jpg"]},
       {emoji:"🚃", name:"Christchurch Tram 復古電車", note:"17 個景點上下車，全程 50min，了解地震後重建歷史", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Christchurch+Tramway+New+Zealand", to_next:"步行 5min"},
       {emoji:"🎭", name:"Re:START 貨櫃市集", note:"地震後重建的創意貨櫃街區，文創小店 + 咖啡廳聚集", rating:4.3, reviews:"2.5K", maps:"https://maps.google.com/?q=ReSTART+Container+Mall+Christchurch", to_next:null}
     ],
@@ -671,6 +678,100 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
 ]};
 
 // ═══════════════════════════════════════════════════════
+//  PHOTO LOOKUP  (Wikimedia Commons, keyed by attraction name fragment)
+//  Add / replace URLs here anytime — no other code needs to change.
+// ═══════════════════════════════════════════════════════
+const PHOTOS = {
+  "Botanic Gardens 植物園": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/ChristchurchBotanicGardens.jpg/480px-ChristchurchBotanicGardens.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Christchurch_botanical_garden_3.jpg/480px-Christchurch_botanical_garden_3.jpg"
+  ],
+  "Christchurch Tram 復古電車": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Christchurch_Tramway.jpg/480px-Christchurch_Tramway.jpg"
+  ],
+  "Antarctic Centre 南極體驗館": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/International_Antarctic_Centre_Christchurch.jpg/480px-International_Antarctic_Centre_Christchurch.jpg"
+  ],
+  "Lake Tekapo 牛奶藍湖泊": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Lake_Tekapo_2.jpg/480px-Lake_Tekapo_2.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Lake_Tekapo_reflections.jpg/480px-Lake_Tekapo_reflections.jpg"
+  ],
+  "Church of the Good Shepherd": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Church_of_the_Good_Shepherd%2C_Lake_Tekapo_1.jpg/480px-Church_of_the_Good_Shepherd%2C_Lake_Tekapo_1.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Church_of_Good_Shepherd_Lake_Tekapo_NZ.jpg/480px-Church_of_Good_Shepherd_Lake_Tekapo_NZ.jpg"
+  ],
+  "Mt John Observatory": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Milky_Way_over_Lake_Tekapo.jpg/480px-Milky_Way_over_Lake_Tekapo.jpg"
+  ],
+  "Hooker Valley Track": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Hooker_Valley_Track_NZ.jpg/480px-Hooker_Valley_Track_NZ.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Aoraki_Mount_Cook_from_Hooker_Valley.jpg/480px-Aoraki_Mount_Cook_from_Hooker_Valley.jpg"
+  ],
+  "Tasman Glacier": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Tasman_Glacier_2008.jpg/480px-Tasman_Glacier_2008.jpg"
+  ],
+  "Lindis Pass": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Lindis_Pass_New_Zealand.jpg/480px-Lindis_Pass_New_Zealand.jpg"
+  ],
+  "Arrowtown 箭鎮": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Arrowtown_autumn.jpg/480px-Arrowtown_autumn.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Arrowtown_New_Zealand.jpg/480px-Arrowtown_New_Zealand.jpg"
+  ],
+  "Skyline Gondola": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Skyline_Queenstown.jpg/480px-Skyline_Queenstown.jpg"
+  ],
+  "Kawarau Bridge Bungee": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Kawarau_Bridge_bungee.jpg/480px-Kawarau_Bridge_bungee.jpg"
+  ],
+  "Queenstown Gardens": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Queenstown_from_the_Remarkables.jpg/480px-Queenstown_from_the_Remarkables.jpg"
+  ],
+  "Mirror Lakes": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Mirror_Lakes_New_Zealand.jpg/480px-Mirror_Lakes_New_Zealand.jpg"
+  ],
+  "Milford Sound": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Milford_Sound_04.jpg/480px-Milford_Sound_04.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Milford_Sound_Mitre_Peak.jpg/480px-Milford_Sound_Mitre_Peak.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Milford_sound_waterfall.jpg/480px-Milford_sound_waterfall.jpg"
+  ],
+  "Wanaka Tree": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/That_Wanaka_Tree.jpg/480px-That_Wanaka_Tree.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Wanaka_tree_sunset.jpg/480px-Wanaka_tree_sunset.jpg"
+  ],
+  "Roy's Peak Track": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Roys_Peak_Wanaka.jpg/480px-Roys_Peak_Wanaka.jpg"
+  ],
+  "Blue Pools": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Blue_Pools_Haast_Pass_NZ.jpg/480px-Blue_Pools_Haast_Pass_NZ.jpg"
+  ],
+  "Fox Glacier Walk": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Fox_Glacier_New_Zealand.jpg/480px-Fox_Glacier_New_Zealand.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Fox_Glacier_terminal_face.jpg/480px-Fox_Glacier_terminal_face.jpg"
+  ],
+  "Lake Matheson": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lake_Matheson_NZ.jpg/480px-Lake_Matheson_NZ.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lake_Matheson_reflections.jpg/480px-Lake_Matheson_reflections.jpg"
+  ],
+  "Franz Josef Glacier": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Franz_Josef_Glacier.jpg/480px-Franz_Josef_Glacier.jpg"
+  ],
+  "Hokitika Gorge": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Hokitika_Gorge.jpg/480px-Hokitika_Gorge.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Hokitika_gorge_blue_water.jpg/480px-Hokitika_gorge_blue_water.jpg"
+  ],
+  "Whale Watch Kaikoura": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Sperm_whale_Kaikoura.jpg/480px-Sperm_whale_Kaikoura.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Kaikoura_whale_watching.jpg/480px-Kaikoura_whale_watching.jpg"
+  ],
+  "Point Kean 海狗": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Fur_seals_Kaikoura.jpg/480px-Fur_seals_Kaikoura.jpg"
+  ],
+  "Cloudy Bay": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Cloudy_Bay_Winery_Marlborough.jpg/480px-Cloudy_Bay_Winery_Marlborough.jpg"
+  ]
+};
+
+// ═══════════════════════════════════════════════════════
 //  STATE
 // ═══════════════════════════════════════════════════════
 const S = { open: null, wx: {} };
@@ -690,6 +791,20 @@ function stars(r){ return r>0 ? `<span class="star">★</span><span class="ratin
 function reviewTxt(r){ return r ? `<span class="rating-cnt">(${r})</span>` : ''; }
 function mapsIcon(url){ return url ? `<span class="maps-hint">📍 地圖</span>` : ''; }
 
+function lookupPhotos(name){
+  const key = Object.keys(PHOTOS).find(k => name.includes(k));
+  return key ? PHOTOS[key] : [];
+}
+
+function renderPhotos(name){
+  const photos = lookupPhotos(name);
+  if(!photos.length) return '';
+  const imgs = photos.map(p =>
+    `<img class="photo-thumb" src="${p}" loading="lazy" onerror="this.style.display='none'" onclick="event.stopPropagation();window.open('${p}','_blank')" alt="">`
+  ).join('');
+  return `<div class="photo-strip">${imgs}</div>`;
+}
+
 function renderAttr(a, isRainy){
   const clickable = a.maps ? `onclick="mapsClick('${a.maps}',event)"` : '';
   return `
@@ -701,6 +816,7 @@ function renderAttr(a, isRainy){
           <span class="attr-rating">${stars(a.rating)} ${reviewTxt(a.reviews)}</span>
         </div>
         <div class="attr-note">${a.note}</div>
+        ${renderPhotos(a.name)}
         ${mapsIcon(a.maps)}
       </div>
     </div>
