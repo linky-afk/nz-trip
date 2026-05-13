@@ -900,7 +900,7 @@ function renderCost(name){
 }
 
 function renderAttr(a, isRainy){
-  const clickable = a.maps ? 'onclick="mapsClick(\"'+a.maps+'\",event)"' : "";
+  const clickable = a.maps ? 'onclick="mapsClick(\''+a.maps+'\',event)"' : "";
   const transit = a.to_next ? '<div class="transit"><div class="transit-line"></div><span class="transit-txt">↕ '+a.to_next+'</span><div class="transit-line"></div></div>' : "";
   return '<div class="attr-item" '+clickable+' role="'+( a.maps?"link":"")+'" tabindex="'+( a.maps?0:-1)+'">'+
     '<span class="attr-em">'+a.emoji+"</span>"+
@@ -915,7 +915,7 @@ function renderAttr(a, isRainy){
 }
 
 function renderRest(r){
-  const clickable = r.maps ? 'onclick="mapsClick(\"'+r.maps+'\",event)"' : "";
+  const clickable = r.maps ? 'onclick="mapsClick(\''+r.maps+'\',event)"' : "";
   return '<div class="rest-item" '+clickable+' role="'+( r.maps?"link":"")+'" tabindex="'+( r.maps?0:-1)+'">'+
     '<span class="rest-em">'+r.emoji+"</span>"+
     '<div class="rest-body">'+
@@ -1058,8 +1058,8 @@ function renderTab0(){
 
 function renderTab1(){
   const memberInputs = members.map(function(m,i){
-    return "<input class=\"member-inp\" type=\"text\" value=\""+m+"__QUOT__" placeholder=\"旅人 "+(i+1)+"\" data-mi=\""+i+"\" onblur=\"updateMember(this)\" />";
-  }).join("").replace(/__QUOT__/g,""");
+    return '<input class="member-inp" type="text" value="' + m.replace(/"/g,'&quot;') + '" placeholder="旅人 ' + (i+1) + '" data-mi="' + i + '" onblur="updateMember(this)" />';
+  }).join("");
   const expListHTML = expenses.length===0
     ? "<div style=\"font-size:12px;color:var(--tl);padding:8px 0\">尚無費用記錄</div>"
     : expenses.map(function(e,i){
