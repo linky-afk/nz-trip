@@ -6,16 +6,13 @@
   <title>🌿 紐西蘭南島 14 天</title>
   <style>
     :root {
-      --g-dark:  #2D6A4F; --g-mid: #40916C; --g-light: #74C69D; --g-pale: #D8F3DC;
-      --beige:   #F7F2E8; --sand: #EBE2CE; --sand-d: #C9B99A; --cream: #FFFDF6;
-      --td: #1B2D22; --tm: #4A5C4E; --tl: #8A9E8E;
-      --rd: #2C4F6A; --rm: #4A7C9E; --rl: #D4EAF7;
-      --amber: #F59E0B; --star: #F5A623;
+      --g-dark:#2D6A4F;--g-mid:#40916C;--g-light:#74C69D;--g-pale:#D8F3DC;
+      --beige:#F7F2E8;--sand:#EBE2CE;--sand-d:#C9B99A;--cream:#FFFDF6;
+      --td:#1B2D22;--tm:#4A5C4E;--tl:#8A9E8E;
+      --rd:#2C4F6A;--rm:#4A7C9E;--rl:#D4EAF7;--star:#F5A623;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--beige);color:var(--td);max-width:540px;margin:0 auto;min-height:100vh}
-
-    /* ── Header ── */
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--beige);color:var(--td);max-width:540px;margin:0 auto;min-height:100vh}
     .hdr{background:linear-gradient(150deg,var(--g-dark),var(--g-mid));padding:18px 18px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 14px rgba(0,0,0,.2)}
     .hdr-row{display:flex;align-items:center;gap:11px}
     .hdr-leaf{font-size:28px;flex-shrink:0}
@@ -26,22 +23,14 @@
     .prog-track{background:rgba(255,255,255,.22);border-radius:8px;height:5px;overflow:hidden}
     .prog-fill{height:100%;background:var(--g-pale);border-radius:8px;transition:width .4s ease;width:0%}
     .prog-lbl{color:rgba(255,255,255,.7);font-size:11px;margin-top:4px;text-align:right}
-
-    /* ── Region divider ── */
     .reg-wrap{padding:14px 14px 4px}
     .reg-div{display:flex;align-items:center;gap:10px}
     .reg-div span{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tl);white-space:nowrap}
-    .reg-div::before,.reg-div::after{content:'';flex:1;height:1px;background:var(--sand-d);opacity:.5}
-
-    /* ── Days list ── */
+    .reg-div::before,.reg-div::after{content:"";flex:1;height:1px;background:var(--sand-d);opacity:.5}
     .days-wrap{padding:6px 12px 28px;display:flex;flex-direction:column;gap:8px}
-
-    /* ── Day card ── */
     .card{background:var(--cream);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(45,106,79,.1);transition:box-shadow .2s}
     .card.open{box-shadow:0 5px 22px rgba(45,106,79,.18)}
     .card.rainy .card-hdr{background:linear-gradient(135deg,var(--rd),var(--rm))}
-
-    /* ── Card header ── */
     .card-hdr{background:linear-gradient(135deg,var(--g-mid),var(--g-light));padding:13px 15px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;transition:background .3s}
     .day-badge{background:rgba(255,255,255,.26);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;flex-shrink:0}
     .card-info{flex:1;min-width:0}
@@ -50,23 +39,15 @@
     .mbadge{font-size:10.5px;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9)}
     .chev{color:rgba(255,255,255,.75);font-size:15px;flex-shrink:0;transition:transform .3s}
     .card.open .chev{transform:rotate(180deg)}
-
-    /* ── Body ── */
     .card-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
-    .card-body.open{max-height:2400px}
+    .card-body.open{max-height:3200px}
     .body-inner{padding:14px 14px 16px}
-
-    /* Weather toggle */
     .wtog{display:flex;gap:5px;background:var(--sand);border-radius:11px;padding:4px;margin-bottom:14px}
     .wbtn{flex:1;padding:7px 8px;border:none;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--tm)}
     .wbtn.active.sunny{background:#F5A623;color:#fff;box-shadow:0 2px 6px rgba(245,166,35,.35)}
     .wbtn.active.rainy{background:var(--rm);color:#fff;box-shadow:0 2px 6px rgba(74,124,158,.35)}
-
-    /* Section label */
     .slbl{font-size:10px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--tl);margin-bottom:7px;margin-top:14px}
     .slbl:first-of-type{margin-top:0}
-
-    /* ── Attraction item ── */
     .attr-item{display:flex;align-items:flex-start;gap:9px;background:var(--beige);border-radius:11px;padding:10px 11px;cursor:pointer;text-decoration:none;transition:opacity .15s}
     .attr-item:active{opacity:.75}
     .card.rainy .attr-item{background:var(--rl)}
@@ -81,13 +62,10 @@
     .attr-note{font-size:12px;color:var(--tm);margin-top:3px;line-height:1.45}
     .maps-hint{font-size:10.5px;color:var(--g-mid);margin-top:4px;display:flex;align-items:center;gap:3px}
     .card.rainy .maps-hint{color:var(--rm)}
-
-    /* Transit connector */
+    .cost-tag{display:inline-block;background:rgba(45,106,79,0.12);color:var(--g-dark);font-size:10.5px;padding:2px 8px;border-radius:10px;margin-top:4px;margin-bottom:2px;font-weight:600}
     .transit{display:flex;align-items:center;gap:8px;padding:3px 6px;margin:2px 0}
     .transit-line{flex:1;height:1px;background:var(--sand-d);opacity:.4}
     .transit-txt{font-size:11px;color:var(--tl);white-space:nowrap}
-
-    /* ── Restaurant item ── */
     .rest-item{display:flex;align-items:flex-start;gap:9px;background:var(--sand);border-radius:11px;padding:9px 11px;cursor:pointer;text-decoration:none;transition:opacity .15s}
     .rest-item:active{opacity:.75}
     .card.rainy .rest-item{background:#e0eef7}
@@ -98,8 +76,6 @@
     .rest-type{font-size:10.5px;color:var(--tl);margin-top:2px}
     .rest-note{font-size:11.5px;color:var(--tm);margin-top:3px;line-height:1.4}
     .rest-list{display:flex;flex-direction:column;gap:6px}
-
-    /* ── Stay section ── */
     .stay-box{background:var(--g-pale);border-radius:11px;padding:11px 13px}
     .card.rainy .stay-box{background:var(--rl)}
     .stay-town{font-size:13px;font-weight:700;color:var(--g-dark);margin-bottom:6px}
@@ -111,24 +87,85 @@
     .card.rainy .tier-tag{background:rgba(74,124,158,.15);color:var(--rd)}
     .tier-name{font-size:12.5px;color:var(--td);font-weight:500}
     .tier-price{font-size:11px;color:var(--tl);margin-left:auto;flex-shrink:0}
-
-    /* Notes box */
     .notes{background:var(--sand);border-radius:10px;padding:9px 11px;font-size:12px;color:var(--tm);line-height:1.55;border-left:3px solid var(--sand-d);margin-top:14px}
     .card.rainy .notes{border-left-color:var(--rm)}
-
-    /* ── Photo strip ── */
     .photo-strip{display:flex;gap:7px;overflow-x:auto;padding:6px 0 4px;scrollbar-width:none;margin-top:6px}
     .photo-strip::-webkit-scrollbar{display:none}
     .photo-thumb{width:120px;height:80px;object-fit:cover;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,var(--sand),var(--sand-d));cursor:pointer;transition:opacity .15s}
     .photo-thumb:active{opacity:.8}
-    .photo-ph{width:120px;height:80px;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,var(--g-pale),var(--sand));display:flex;align-items:center;justify-content:center;font-size:22px}
-
-    /* Footer */
+    .feature-panel{background:var(--cream);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(45,106,79,.1);margin:6px 12px 4px}
+    .feature-hdr{background:linear-gradient(135deg,#1B4332,var(--g-dark));padding:13px 15px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+    .feature-hdr-title{color:#fff;font-size:14px;font-weight:700;flex:1}
+    .feature-hdr-sub{color:rgba(255,255,255,.75);font-size:11px}
+    .fchev{color:rgba(255,255,255,.75);font-size:15px;transition:transform .3s}
+    .feature-panel.open .fchev{transform:rotate(180deg)}
+    .feature-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+    .feature-body.open{max-height:9999px}
+    .feature-inner{padding:14px}
+    .ftabs{display:flex;gap:4px;background:var(--sand);border-radius:10px;padding:4px;margin-bottom:14px}
+    .ftab{flex:1;padding:7px 4px;border:none;border-radius:7px;font-size:11.5px;font-weight:600;cursor:pointer;background:transparent;color:var(--tm);transition:all .2s}
+    .ftab.active{background:#fff;color:var(--g-dark);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+    .ftab-pane{display:none}
+    .ftab-pane.active{display:block}
+    .budget-table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0}
+    .budget-table th{text-align:left;padding:6px 8px;background:var(--g-pale);color:var(--g-dark);font-size:11px;font-weight:700}
+    .budget-table td{padding:6px 8px;border-bottom:1px solid var(--sand);color:var(--td)}
+    .budget-table tr:nth-child(even) td{background:rgba(216,243,220,0.3)}
+    .budget-table .total-row td{background:var(--g-pale);font-weight:700;color:var(--g-dark)}
+    .route-text{font-size:12px;color:var(--td);background:var(--g-pale);border-radius:8px;padding:9px 11px;margin-bottom:12px;line-height:1.7;font-weight:500;word-break:break-all}
+    .section-title{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--tl);margin:14px 0 7px}
+    .booking-group{margin-bottom:10px}
+    .booking-group-lbl{font-size:12px;font-weight:700;color:var(--td);margin-bottom:5px}
+    .booking-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tm);margin-bottom:5px;line-height:1.5}
+    .member-inputs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+    .member-inp{flex:1;min-width:80px;border:1.5px solid var(--sand-d);border-radius:8px;padding:6px 8px;font-size:12px;color:var(--td);background:#fff;font-family:inherit}
+    .member-inp:focus{outline:none;border-color:var(--g-mid)}
+    .expense-form{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:flex-end}
+    .expense-form select,.expense-form input{border:1.5px solid var(--sand-d);border-radius:8px;padding:7px 9px;font-size:12.5px;color:var(--td);background:#fff;font-family:inherit}
+    .expense-form select:focus,.expense-form input:focus{outline:none;border-color:var(--g-mid)}
+    .expense-form input[type=number]{width:85px}
+    .expense-form input[type=text]{flex:1;min-width:90px}
+    .btn-add{background:var(--g-mid);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+    .btn-add:active{opacity:.8}
+    .btn-clr{background:none;border:1.5px solid var(--sand-d);color:var(--tl);border-radius:8px;padding:5px 10px;font-size:11.5px;cursor:pointer;font-family:inherit}
+    .expense-list{max-height:200px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:5px}
+    .expense-list-item{display:flex;align-items:center;gap:7px;background:var(--beige);border-radius:8px;padding:7px 10px;font-size:12px}
+    .eli-payer{font-weight:700;color:var(--g-dark);flex-shrink:0}
+    .eli-amt{font-weight:700;color:var(--td);flex-shrink:0}
+    .eli-desc{flex:1;color:var(--tm);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .eli-del{background:none;border:none;cursor:pointer;font-size:15px;color:var(--tl);padding:0 2px;line-height:1;flex-shrink:0}
+    .expense-summary{background:var(--g-pale);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+    .expense-summary-row{display:flex;justify-content:space-between;font-size:12px;color:var(--tm);margin-bottom:4px}
+    .expense-summary-row.total{font-weight:700;color:var(--td);font-size:13px;border-top:1px solid var(--sand-d);padding-top:6px;margin-top:4px}
+    .settle-tx{display:flex;align-items:center;gap:6px;background:#fff;border-radius:8px;padding:8px 10px;font-size:12px;color:var(--td);margin-bottom:5px;border-left:3px solid var(--g-mid)}
+    .settle-balanced{text-align:center;color:var(--g-dark);font-size:13px;font-weight:700;padding:10px;background:var(--g-pale);border-radius:8px}
+    .packing-progress-bar-wrap{background:var(--sand);border-radius:6px;height:6px;overflow:hidden;margin-bottom:4px}
+    .packing-progress-bar{height:100%;background:var(--g-mid);border-radius:6px;transition:width .3s}
+    .packing-progress-lbl{font-size:11px;color:var(--tl);margin-bottom:8px;text-align:right}
+    .packing-cat{font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--g-dark);margin:12px 0 6px}
+    .packing-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--td);margin-bottom:5px;cursor:pointer;line-height:1.3}
+    .packing-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--g-mid);cursor:pointer;flex-shrink:0}
+    .packing-item.checked{color:var(--tl);text-decoration:line-through}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+    .info-card{background:var(--beige);border-radius:10px;padding:10px 11px}
+    .info-card-title{font-size:12px;font-weight:700;color:var(--td);margin-bottom:6px}
+    .info-card ul{list-style:none;padding:0}
+    .info-card ul li{font-size:11px;color:var(--tm);margin-bottom:4px;line-height:1.4}
+    .converter{display:flex;align-items:flex-end;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+    .conv-group{display:flex;flex-direction:column}
+    .conv-lbl{font-size:11px;color:var(--tl);margin-bottom:3px}
+    .conv-inp{border:1.5px solid var(--sand-d);border-radius:8px;padding:7px 10px;font-size:13px;width:115px;color:var(--td);background:#fff;font-family:inherit}
+    .conv-inp:focus{outline:none;border-color:var(--g-mid)}
+    .conv-sym{font-size:16px;color:var(--tl);padding-bottom:6px}
+    .conv-note{font-size:10.5px;color:var(--tl);margin-top:4px}
+    .currency-ref{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:10px}
+    .currency-ref-cell{background:var(--g-pale);border-radius:7px;padding:6px 5px;text-align:center}
+    .currency-ref-nzd{font-size:11px;font-weight:700;color:var(--g-dark)}
+    .currency-ref-twd{font-size:10px;color:var(--tm)}
     .footer{text-align:center;padding:18px 16px 32px;color:var(--tl);font-size:11.5px;line-height:1.9}
   </style>
 </head>
 <body>
-
 <header class="hdr">
   <div class="hdr-row">
     <span class="hdr-leaf">🌿</span>
@@ -140,19 +177,149 @@
     <div class="prog-lbl" id="progLbl">點擊任一天展開行程</div>
   </div>
 </header>
-
+<div id="featureRoot"></div>
 <div id="appRoot"></div>
-
 <div class="footer">
   📍 點擊景點 / 餐廳可直接跳轉 Google Maps<br>
   🌿 資料為 JSON 格式，在 &lt;script&gt; 內編輯 tripData 即可擴充
 </div>
-
 <script>
-// ═══════════════════════════════════════════════════════
-//  TRIP DATA
-//  每個 attraction / restaurant 點擊後直接開啟 Google Maps
-// ═══════════════════════════════════════════════════════
+const COSTS = {
+  "Botanic Gardens 植物園":"免費",
+  "Christchurch Tram":"NZD 30/人",
+  "Antarctic Centre":"NZD 45/人",
+  "Lake Tekapo 牛奶藍":"免費",
+  "Church of the Good Shepherd":"免費",
+  "Mt John Observatory":"NZD 145/人",
+  "Tekapo Springs":"NZD 30-45/人",
+  "Hanmer Springs":"NZD 24/人",
+  "Waipara Valley":"NZD 10-20（試酒）",
+  "Kea Point Track":"免費",
+  "Hooker Valley Track":"免費",
+  "Tasman Glacier":"免費",
+  "Sir Edmund Hillary":"NZD 22/人",
+  "Lindis Pass":"免費",
+  "Cromwell":"NZD 3-8（水果）",
+  "Arrowtown":"免費（博物館 NZD 10）",
+  "Skyline Gondola":"NZD 39/人",
+  "Skydive":"NZD 299+/人",
+  "Kawarau Bridge Bungee":"NZD 250/人",
+  "Queenstown Gardens":"免費",
+  "Kiwi Birdlife Park":"NZD 45/人",
+  "Mirror Lakes":"免費",
+  "The Chasm":"免費",
+  "Milford Sound":"NZD 89-150/人",
+  "Wanaka Tree":"免費",
+  "Puzzling World":"NZD 24/人",
+  "Roy's Peak":"免費",
+  "Blue Pools":"免費",
+  "Fox Glacier Walk":"免費",
+  "Lake Matheson":"免費",
+  "Franz Josef Glacier":"免費",
+  "直升機冰川":"NZD 300-450/人",
+  "Hokitika Gorge":"免費",
+  "玉石雕刻":"NZD 30-100",
+  "Devil's Punchbowl":"免費",
+  "Whale Watch Kaikoura":"NZD 165/人",
+  "Point Kean":"免費",
+  "Cloudy Bay":"NZD 15-30（品酒）",
+  "Wither Hills":"NZD 10-25（品酒）",
+  "Pelorus Bridge":"免費",
+  "Nelson":"免費",
+  "New Regent Street":"免費（購物另計）",
+  "Riccarton Mall":"免費（購物另計）"
+};
+
+const PHOTOS = {
+  "Botanic Gardens 植物園": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/ChristchurchBotanicGardens.jpg/480px-ChristchurchBotanicGardens.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Christchurch_botanical_garden_3.jpg/480px-Christchurch_botanical_garden_3.jpg"
+  ],
+  "Christchurch Tram": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Christchurch_Tramway.jpg/480px-Christchurch_Tramway.jpg"
+  ],
+  "Antarctic Centre": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/International_Antarctic_Centre_Christchurch.jpg/480px-International_Antarctic_Centre_Christchurch.jpg"
+  ],
+  "Lake Tekapo 牛奶藍": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Lake_Tekapo_2.jpg/480px-Lake_Tekapo_2.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Lake_Tekapo_reflections.jpg/480px-Lake_Tekapo_reflections.jpg"
+  ],
+  "Church of the Good Shepherd": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Church_of_the_Good_Shepherd%2C_Lake_Tekapo_1.jpg/480px-Church_of_the_Good_Shepherd%2C_Lake_Tekapo_1.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Church_of_Good_Shepherd_Lake_Tekapo_NZ.jpg/480px-Church_of_Good_Shepherd_Lake_Tekapo_NZ.jpg"
+  ],
+  "Mt John Observatory": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Milky_Way_over_Lake_Tekapo.jpg/480px-Milky_Way_over_Lake_Tekapo.jpg"
+  ],
+  "Hooker Valley Track": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Hooker_Valley_Track_NZ.jpg/480px-Hooker_Valley_Track_NZ.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Aoraki_Mount_Cook_from_Hooker_Valley.jpg/480px-Aoraki_Mount_Cook_from_Hooker_Valley.jpg"
+  ],
+  "Tasman Glacier": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Tasman_Glacier_2008.jpg/480px-Tasman_Glacier_2008.jpg"
+  ],
+  "Lindis Pass": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Lindis_Pass_New_Zealand.jpg/480px-Lindis_Pass_New_Zealand.jpg"
+  ],
+  "Arrowtown": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Arrowtown_autumn.jpg/480px-Arrowtown_autumn.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Arrowtown_New_Zealand.jpg/480px-Arrowtown_New_Zealand.jpg"
+  ],
+  "Skyline Gondola": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Skyline_Queenstown.jpg/480px-Skyline_Queenstown.jpg"
+  ],
+  "Kawarau Bridge Bungee": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Kawarau_Bridge_bungee.jpg/480px-Kawarau_Bridge_bungee.jpg"
+  ],
+  "Queenstown Gardens": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Queenstown_from_the_Remarkables.jpg/480px-Queenstown_from_the_Remarkables.jpg"
+  ],
+  "Mirror Lakes": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Mirror_Lakes_New_Zealand.jpg/480px-Mirror_Lakes_New_Zealand.jpg"
+  ],
+  "Milford Sound": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Milford_Sound_04.jpg/480px-Milford_Sound_04.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Milford_Sound_Mitre_Peak.jpg/480px-Milford_Sound_Mitre_Peak.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Milford_sound_waterfall.jpg/480px-Milford_sound_waterfall.jpg"
+  ],
+  "Wanaka Tree": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/That_Wanaka_Tree.jpg/480px-That_Wanaka_Tree.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Wanaka_tree_sunset.jpg/480px-Wanaka_tree_sunset.jpg"
+  ],
+  "Roy's Peak": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Roys_Peak_Wanaka.jpg/480px-Roys_Peak_Wanaka.jpg"
+  ],
+  "Blue Pools": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Blue_Pools_Haast_Pass_NZ.jpg/480px-Blue_Pools_Haast_Pass_NZ.jpg"
+  ],
+  "Fox Glacier Walk": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Fox_Glacier_New_Zealand.jpg/480px-Fox_Glacier_New_Zealand.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Fox_Glacier_terminal_face.jpg/480px-Fox_Glacier_terminal_face.jpg"
+  ],
+  "Lake Matheson": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lake_Matheson_NZ.jpg/480px-Lake_Matheson_NZ.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lake_Matheson_reflections.jpg/480px-Lake_Matheson_reflections.jpg"
+  ],
+  "Franz Josef Glacier": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Franz_Josef_Glacier.jpg/480px-Franz_Josef_Glacier.jpg"
+  ],
+  "Hokitika Gorge": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Hokitika_Gorge.jpg/480px-Hokitika_Gorge.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Hokitika_gorge_blue_water.jpg/480px-Hokitika_gorge_blue_water.jpg"
+  ],
+  "Whale Watch Kaikoura": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Sperm_whale_Kaikoura.jpg/480px-Sperm_whale_Kaikoura.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Kaikoura_whale_watching.jpg/480px-Kaikoura_whale_watching.jpg"
+  ],
+  "Point Kean": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Fur_seals_Kaikoura.jpg/480px-Fur_seals_Kaikoura.jpg"
+  ],
+  "Cloudy Bay": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Cloudy_Bay_Winery_Marlborough.jpg/480px-Cloudy_Bay_Winery_Marlborough.jpg"
+  ]
+};
+
 const tripData = { title:"紐西蘭南島 14 天", days:[
 {
   day:1, title:"抵達基督城", location:"Christchurch", drive:"✈️ 抵達",
@@ -167,7 +334,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   },
   sunny:{
     attractions:[
-      {emoji:"🌸", name:"Botanic Gardens 植物園", note:"市中心免費公園，玫瑰園 + 溫室，推薦下午漫步", rating:4.7, reviews:"13K", maps:"https://maps.google.com/?q=Christchurch+Botanic+Gardens+New+Zealand", to_next:"步行 10min", photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/ChristchurchBotanicGardens.jpg/640px-ChristchurchBotanicGardens.jpg","https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Christchurch_Botanic_Gardens_rose_garden.jpg/640px-Christchurch_Botanic_Gardens_rose_garden.jpg"]},
+      {emoji:"🌸", name:"Botanic Gardens 植物園", note:"市中心免費公園，玫瑰園 + 溫室，推薦下午漫步", rating:4.7, reviews:"13K", maps:"https://maps.google.com/?q=Christchurch+Botanic+Gardens+New+Zealand", to_next:"步行 10min"},
       {emoji:"🚃", name:"Christchurch Tram 復古電車", note:"17 個景點上下車，全程 50min，了解地震後重建歷史", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Christchurch+Tramway+New+Zealand", to_next:"步行 5min"},
       {emoji:"🎭", name:"Re:START 貨櫃市集", note:"地震後重建的創意貨櫃街區，文創小店 + 咖啡廳聚集", rating:4.3, reviews:"2.5K", maps:"https://maps.google.com/?q=ReSTART+Container+Mall+Christchurch", to_next:null}
     ],
@@ -195,7 +362,78 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   }
 },
 {
-  day:2, title:"基督城 → 蒂卡波湖", location:"Lake Tekapo", drive:"🚗 約 3h",
+  day:2, title:"基督城 → 凱庫拉 觀鯨", location:"Kaikoura", drive:"🚗 約 2.5h",
+  stay:{
+    town:"凱庫拉 Kaikoura",
+    note:"小鎮住宿選擇有限，觀鯨船預訂後再訂房。提早 4–6 週訂觀鯨票。",
+    options:[
+      {tier:"中價", name:"Kaikoura Retreat", nzd:"150–250"},
+      {tier:"平價", name:"Albatross Backpacker Inn", nzd:"35–80"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🐋", name:"Whale Watch Kaikoura 觀鯨船", note:"抹香鯨出沒率 95%+，3–4h，NZD 165/人。提前 4–6 週訂票", rating:4.7, reviews:"5.3K", maps:"https://maps.google.com/?q=Whale+Watch+Kaikoura+New+Zealand", to_next:"🚗 10min"},
+      {emoji:"🦭", name:"Point Kean 海狗群聚", note:"停車場旁即有大量毛皮海狗，免費近距離觀察，不要觸摸", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Point+Kean+Seal+Colony+Kaikoura", to_next:"步行 5min"},
+      {emoji:"🦞", name:"路邊 Crayfish 龍蝦攤", note:"凱庫拉龍蝦新鮮便宜，路邊攤價格遠低於餐廳，必試", rating:4.5, reviews:"2.1K", maps:"https://maps.google.com/?q=Kaikoura+Seafood+BBQ+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🦞", name:"Kaikoura Seafood BBQ（路邊攤）", cuisine:"午餐 · 海鮮", note:"現烤龍蝦 + 螃蟹，價格公道，路邊現點現吃", rating:4.6, reviews:"1.8K", maps:"https://maps.google.com/?q=Kaikoura+Seafood+BBQ"},
+      {emoji:"🥗", name:"Hislops Wholefood Café", cuisine:"晚餐 · 有機料理", note:"在地食材有機料理，蔬食友善，評價穩定", rating:4.5, reviews:"1.3K", maps:"https://maps.google.com/?q=Hislops+Cafe+Kaikoura"}
+    ],
+    supermarket:"Four Square Kaikoura（價格偏高，建議在基督城備妥）",
+    notes:"觀鯨船旺季極易售罄，建議提前 4–6 週訂。遇惡劣海況取消時有 80% 退款。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🐋", name:"觀鯨船（視海況決定）", note:"風浪過大會取消並退款。可改訂觀鯨直升機（NZD 185+）", rating:4.7, reviews:"5.3K", maps:"https://maps.google.com/?q=Whale+Watch+Kaikoura+New+Zealand", to_next:"🚗 10min"},
+      {emoji:"🦭", name:"Point Kean 海狗（風雨仍可去）", note:"海狗全天候在岸邊，雨天牠們懶懶的更好拍", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Point+Kean+Seal+Colony+Kaikoura", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🥗", name:"Hislops Wholefood Café", cuisine:"午餐 + 晚餐", note:"小鎮雨天最舒適的室內用餐選擇", rating:4.5, reviews:"1.3K", maps:"https://maps.google.com/?q=Hislops+Cafe+Kaikoura"}
+    ],
+    supermarket:"Four Square Kaikoura",
+    notes:"觀鯨直升機是雨天最佳備案（不受海況影響），但需提前預約並確認能見度。"
+  }
+},
+{
+  day:3, title:"凱庫拉 → 馬爾堡 酒莊巡禮", location:"Marlborough / Blenheim", drive:"🚗 約 1.5h",
+  stay:{
+    town:"馬爾堡 / 布倫亨 Blenheim",
+    note:"馬爾堡一年有 300 天晴天，葡萄酒聖地。明日南下需早起。",
+    options:[
+      {tier:"中價", name:"Scenic Hotel Marlborough", nzd:"150–250"},
+      {tier:"平價", name:"Blenheim Holiday Park", nzd:"35–80"}
+    ]
+  },
+  sunny:{
+    attractions:[
+      {emoji:"🍷", name:"Cloudy Bay 雲灣酒莊", note:"紐西蘭最知名白蘇維翁酒莊，品酒體驗 NZD 15–30", rating:4.6, reviews:"2.5K", maps:"https://maps.google.com/?q=Cloudy+Bay+Winery+Marlborough", to_next:"🚗 15min"},
+      {emoji:"🍷", name:"Wither Hills Winery", note:"景觀超美的酒莊，戶外品酒台可俯瞰葡萄園全景", rating:4.5, reviews:"2.8K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough", to_next:"🚗 30min"},
+      {emoji:"🌿", name:"Pelorus Bridge Scenic Reserve", note:"古老雨林 + 清澈溪流，比霍比屯取景更天然，步道輕鬆", rating:4.7, reviews:"1.9K", maps:"https://maps.google.com/?q=Pelorus+Bridge+Scenic+Reserve+New+Zealand", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍷", name:"Wither Hills Winery Restaurant", cuisine:"午餐 · 搭配品酒", note:"酒莊內用餐，白蘇維翁配起司盤", rating:4.5, reviews:"1.2K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough"},
+      {emoji:"🥩", name:"Twelve Trees Restaurant", cuisine:"晚餐 · 精緻料理", note:"馬爾堡最佳晚餐，羔羊 + 本地葡萄酒搭配", rating:4.5, reviews:"1.1K", maps:"https://maps.google.com/?q=Twelve+Trees+Restaurant+Marlborough"}
+    ],
+    supermarket:"New World Blenheim（大型補給）",
+    notes:"馬爾堡酒莊品酒通常 NZD 10–30，購酒後可折抵。Cloudy Bay 需提前預約品酒體驗。"
+  },
+  rainy:{
+    attractions:[
+      {emoji:"🍷", name:"Cloudy Bay 室內品酒（雨天照常）", note:"品酒室全程室內，雨天正好慢慢品味", rating:4.6, reviews:"2.5K", maps:"https://maps.google.com/?q=Cloudy+Bay+Winery+Marlborough", to_next:"🚗 15min"},
+      {emoji:"🍷", name:"Wither Hills Winery 室內品酒", note:"酒窖導覽 + 品酒，完全室內，下雨日完美選擇", rating:4.5, reviews:"2.8K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough", to_next:null}
+    ],
+    restaurants:[
+      {emoji:"🍷", name:"Wither Hills Winery Restaurant", cuisine:"午餐", note:"室內窗景仍優美，雨天品酒用餐", rating:4.5, reviews:"1.2K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough"},
+      {emoji:"🥩", name:"Twelve Trees Restaurant", cuisine:"晚餐", note:"旅程豐盛的一頓，值得精心品嚐", rating:4.5, reviews:"1.1K", maps:"https://maps.google.com/?q=Twelve+Trees+Restaurant+Marlborough"}
+    ],
+    supermarket:"New World Blenheim",
+    notes:"馬爾堡一年有 300 天晴天，雨天非常罕見。室內酒莊體驗依然充實。"
+  }
+},
+{
+  day:4, title:"馬爾堡 → 漢默溫泉 → 蒂卡波湖", location:"Lake Tekapo", drive:"🚗 約 5h（南下，途經漢默溫泉）",
   stay:{
     town:"蒂卡波湖畔 Lake Tekapo Village",
     note:"小鎮選擇有限，旺季（12–2月）提早 2 個月訂房，尤其星空導覽場次。",
@@ -207,32 +445,32 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   },
   sunny:{
     attractions:[
-      {emoji:"💙", name:"Lake Tekapo 牛奶藍湖泊", note:"冰川融水造就的神秘藍，日出黃金時段最美", rating:4.9, reviews:"11K", maps:"https://maps.google.com/?q=Lake+Tekapo+New+Zealand", to_next:"步行 8min"},
-      {emoji:"⛪", name:"Church of the Good Shepherd 善良牧羊人教堂", note:"湖畔最具代表性拍照景點，下午光線最佳", rating:4.8, reviews:"25K", maps:"https://maps.google.com/?q=Church+of+the+Good+Shepherd+Lake+Tekapo", to_next:"🚗 15min"},
-      {emoji:"🌟", name:"Mt John Observatory 天文台（夜間）", note:"南半球最佳星空之一，導覽 NZD 145/人，需提前訂", rating:4.8, reviews:"4.5K", maps:"https://maps.google.com/?q=Mount+John+Observatory+Tekapo+New+Zealand", to_next:null}
+      {emoji:"♨️", name:"Hanmer Springs Thermal Reserve 漢默溫泉", note:"溫泉 NZD 24/人，略繞 15min，泡 2h 後繼續南下，強烈推薦", rating:4.6, reviews:"3.8K", maps:"https://maps.google.com/?q=Hanmer+Springs+Thermal+Pools+New+Zealand", to_next:"🚗 1.5h"},
+      {emoji:"🍷", name:"Waipara Valley 葡萄酒區", note:"路邊試酒 NZD 10–20，懷帕拉小產區值得停留小酌", rating:4.4, reviews:"800+", maps:"https://maps.google.com/?q=Waipara+Valley+Wine+New+Zealand", to_next:"🚗 2h"},
+      {emoji:"💙", name:"傍晚抵達蒂卡波湖", note:"第一眼牛奶藍令人窒息，日落在夏季約 8pm，有充裕時間欣賞", rating:4.9, reviews:"11K", maps:"https://maps.google.com/?q=Lake+Tekapo+New+Zealand", to_next:null}
     ],
     restaurants:[
-      {emoji:"🍣", name:"Kohan Restaurant", cuisine:"午餐 · 日式", note:"湖景絕佳，壽司 + 拉麵，本地人推薦的非典型選擇", rating:4.3, reviews:"1.9K", maps:"https://maps.google.com/?q=Kohan+Restaurant+Lake+Tekapo"},
-      {emoji:"🍺", name:"Mackenzie's Bar & Grill", cuisine:"晚餐 · 紐西蘭料理", note:"碳烤牛排 + 在地啤酒，份量足夠", rating:4.2, reviews:"1.1K", maps:"https://maps.google.com/?q=Mackenziess+Bar+Grill+Lake+Tekapo"}
+      {emoji:"🥗", name:"The Hanmer Springs Café", cuisine:"午餐 · 溫泉後暖身", note:"溫泉旁的輕食咖啡館，三明治與熱湯暖身後再出發", rating:4.2, reviews:"600+", maps:"https://maps.google.com/?q=Hanmer+Springs+Cafe+New+Zealand"},
+      {emoji:"🍣", name:"Kohan Restaurant", cuisine:"晚餐 · 日式", note:"蒂卡波湖景絕佳，壽司 + 拉麵，本地人推薦", rating:4.3, reviews:"1.9K", maps:"https://maps.google.com/?q=Kohan+Restaurant+Lake+Tekapo"}
     ],
-    supermarket:"Four Square Tekapo（唯一補給點，早點去）",
-    notes:"蒂卡波是星空保護區，夜間幾乎零光害。Mt John 天文台導覽陰天取消退款，備案可泡 Tekapo Springs 戶外溫泉。"
+    supermarket:"Countdown Amberley（SH1 沿途補給）",
+    notes:"漢默溫泉是南北行程的絕佳中繼站，路過必泡。別趕時間，蒂卡波日落在傍晚 8pm（夏季），有充裕時間。"
   },
   rainy:{
     attractions:[
-      {emoji:"♨️", name:"Tekapo Springs 溫泉", note:"戶外泡湯可撐傘觀湖，室內池也有，全天開放", rating:4.5, reviews:"2.5K", maps:"https://maps.google.com/?q=Tekapo+Springs+New+Zealand", to_next:"步行 5min"},
-      {emoji:"💙", name:"雨霧中的蒂卡波湖", note:"雲霧繚繞，湖色更神秘，適合拍藝術風格照片", rating:4.9, reviews:"11K", maps:"https://maps.google.com/?q=Lake+Tekapo+New+Zealand", to_next:null}
+      {emoji:"♨️", name:"Hanmer Springs 室內泡湯", note:"雨天泡溫泉絕配！室內池完全不受天氣影響，NZD 24/人", rating:4.6, reviews:"3.8K", maps:"https://maps.google.com/?q=Hanmer+Springs+Thermal+Pools+New+Zealand", to_next:"🚗 2.5h"},
+      {emoji:"💙", name:"蒂卡波湖（雨霧中的藍色）", note:"雲霧繚繞中的湖色更神秘，適合拍藝術風格照片", rating:4.9, reviews:"11K", maps:"https://maps.google.com/?q=Lake+Tekapo+New+Zealand", to_next:null}
     ],
     restaurants:[
-      {emoji:"🍣", name:"Kohan Restaurant", cuisine:"午餐 · 日式", note:"雨天室內用餐，景觀座位搶手，提早入座", rating:4.3, reviews:"1.9K", maps:"https://maps.google.com/?q=Kohan+Restaurant+Lake+Tekapo"},
+      {emoji:"🥗", name:"The Hanmer Springs Café", cuisine:"午餐", note:"雨天在溫馨咖啡館用餐後繼續南下", rating:4.2, reviews:"600+", maps:"https://maps.google.com/?q=Hanmer+Springs+Cafe+New+Zealand"},
       {emoji:"☕", name:"Pepe's Wine & Bar", cuisine:"晚餐 · 輕食", note:"小而溫馨，紅酒 + 起司盤，雨天最適合", rating:4.1, reviews:"600+", maps:"https://maps.google.com/?q=Pepes+Wine+Bar+Lake+Tekapo"}
     ],
-    supermarket:"Four Square Tekapo",
-    notes:"陰天星空導覽必定取消但全額退款。Tekapo Springs 是雨天完美替代方案，可泡 2–3 小時非常放鬆。"
+    supermarket:"Countdown Amberley（SH1 沿途）",
+    notes:"漢默溫泉室內泡湯雨天絕配。陰天星空導覽必定取消但全額退款。Tekapo Springs 是雨天完美替代方案。"
   }
 },
 {
-  day:3, title:"蒂卡波湖 → 庫克山", location:"Aoraki / Mt Cook", drive:"🚗 約 1.5h",
+  day:5, title:"蒂卡波湖 → 庫克山", location:"Aoraki / Mt Cook", drive:"🚗 約 1.5h",
   stay:{
     town:"Mt Cook Village（村內選擇極少）",
     note:"⚠️ 村內無超市！所有食物請在蒂卡波備妥。旺季需提前 3 個月訂房。",
@@ -243,6 +481,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   },
   sunny:{
     attractions:[
+      {emoji:"⛪", name:"Church of the Good Shepherd 善良牧羊人教堂", note:"湖畔最具代表性拍照景點，清晨光線最佳（短暫繞行）", rating:4.8, reviews:"25K", maps:"https://maps.google.com/?q=Church+of+the+Good+Shepherd+Lake+Tekapo", to_next:"🚗 1h"},
       {emoji:"🥾", name:"Kea Point Track 奇異鳥角步道", note:"輕鬆來回 2h，壯闊冰川景觀，適合熱身", rating:4.8, reviews:"2.8K", maps:"https://maps.google.com/?q=Kea+Point+Track+Mt+Cook+New+Zealand", to_next:"🚗 5min"},
       {emoji:"🏔️", name:"Hooker Valley Track 胡克谷步道", note:"⭐紐西蘭最美步道之一，來回 10km 約 3h，終點有庫克山倒影湖", rating:4.9, reviews:"8.5K", maps:"https://maps.google.com/?q=Hooker+Valley+Track+Aoraki+Mt+Cook", to_next:"🚗 8min"},
       {emoji:"🧊", name:"Tasman Glacier Viewpoint 塔斯曼冰川觀景台", note:"紐西蘭最長冰川，觀景台眺望，步行 20min", rating:4.7, reviews:"3.1K", maps:"https://maps.google.com/?q=Tasman+Glacier+Viewpoint+Mt+Cook", to_next:null}
@@ -267,7 +506,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   }
 },
 {
-  day:4, title:"庫克山 → 克倫威爾 → 皇后鎮", location:"Queenstown", drive:"🚗 約 4h（翻越 Lindis Pass）",
+  day:6, title:"庫克山 → 克倫威爾 → 皇后鎮", location:"Queenstown", drive:"🚗 約 4h（翻越 Lindis Pass）",
   stay:{
     town:"皇后鎮 Queenstown",
     note:"皇后鎮旺季（12–2月、6–8月滑雪季）住宿貴且搶手，提早 2 個月訂。",
@@ -306,7 +545,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   }
 },
 {
-  day:5, title:"皇后鎮冒險體驗", location:"Queenstown", drive:"🅿️ 在地遊",
+  day:7, title:"皇后鎮冒險體驗", location:"Queenstown", drive:"🅿️ 在地遊",
   stay:{
     town:"皇后鎮 Queenstown",
     note:"連住兩晚，明天米爾福德峽灣需早起，請提早休息。",
@@ -342,11 +581,11 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
       {emoji:"🥩", name:"Botswana Butchery", cuisine:"晚餐 · 牛排", note:"雨天在溫暖燈光下享用一頓好牛排", rating:4.6, reviews:"3.9K", maps:"https://maps.google.com/?q=Botswana+Butchery+Queenstown"}
     ],
     supermarket:"Countdown Queenstown",
-    notes:"跳傘和 Bungee 遇雨天可免費改期，直接聯繫業者。明天米爾福德峽灣如果下雨反而更美（詳見 Day 6）。"
+    notes:"跳傘和 Bungee 遇雨天可免費改期，直接聯繫業者。明天米爾福德峽灣如果下雨反而更美（詳見 Day 8）。"
   }
 },
 {
-  day:6, title:"米爾福德峽灣日遊", location:"Milford Sound（from Queenstown）", drive:"🚗 來回約 6h",
+  day:8, title:"米爾福德峽灣日遊", location:"Milford Sound（from Queenstown）", drive:"🚗 來回約 6h",
   stay:{
     town:"皇后鎮 Queenstown（回程）",
     note:"米爾福德峽灣日遊回到皇后鎮，不需要換住宿。回程約 18:00–19:00。",
@@ -364,7 +603,6 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
     ],
     restaurants:[
       {emoji:"🥪", name:"自備午餐（強烈建議）", cuisine:"午餐 · 自備", note:"峽灣內幾乎無補給，遊船上有輕食但昂貴。前晚在超市備妥三明治", rating:0, reviews:"", maps:""},
-      {emoji:"🍽️", name:"Boat food on cruise（遊船輕食）", cuisine:"午餐 · 船上", note:"遊船提供簡餐，選擇少，建議補充自備食物", rating:3.8, reviews:"500+", maps:"https://maps.google.com/?q=Real+Journeys+Milford+Sound"},
       {emoji:"🍺", name:"Rata Restaurant（回到皇后鎮）", cuisine:"晚餐 · 精緻料理", note:"長途回程後犒賞自己，提前預約", rating:4.5, reviews:"3.1K", maps:"https://maps.google.com/?q=Rata+Restaurant+Queenstown"}
     ],
     supermarket:"⚠️ 峽灣無超市，前晚在皇后鎮備妥",
@@ -385,7 +623,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   }
 },
 {
-  day:7, title:"皇后鎮 → 瓦納卡", location:"Wanaka", drive:"🚗 約 1–1.5h",
+  day:9, title:"皇后鎮 → 瓦納卡", location:"Wanaka", drive:"🚗 約 1–1.5h",
   stay:{
     town:"瓦納卡湖畔 Wanaka",
     note:"比皇后鎮更幽靜，適合放鬆。湖邊住宿景觀極佳，旺季提前訂。",
@@ -425,7 +663,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   }
 },
 {
-  day:8, title:"瓦納卡 → 哈斯特峽谷 → 西海岸", location:"Fox Glacier Village", drive:"🚗 約 4.5h（Haast Pass）",
+  day:10, title:"瓦納卡 → 哈斯特峽谷 → 西海岸", location:"Fox Glacier Village", drive:"🚗 約 4.5h（Haast Pass）",
   stay:{
     town:"Fox Glacier Village 福克斯冰川小鎮",
     note:"西海岸小鎮，選擇有限。提早訂房。明天繼續往北前往法蘭茲約瑟夫。",
@@ -461,7 +699,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   }
 },
 {
-  day:9, title:"西海岸冰川 + 法蘭茲約瑟夫", location:"Fox Glacier → Franz Josef", drive:"🚗 約 30min（兩個冰川之間）",
+  day:11, title:"西海岸冰川 Fox + Franz Josef", location:"Fox Glacier → Franz Josef", drive:"🚗 約 30min（兩個冰川之間）",
   stay:{
     town:"法蘭茲約瑟夫村 Franz Josef Village",
     note:"兩個冰川小鎮相距僅 30min，可選其一作為基地。法蘭茲約瑟夫設施較多。",
@@ -497,7 +735,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   }
 },
 {
-  day:10, title:"西海岸 → 霍基蒂卡 → 亞瑟山口", location:"Hokitika → Arthur's Pass", drive:"🚗 約 3.5h",
+  day:12, title:"西海岸 → 霍基蒂卡 → 亞瑟山口", location:"Hokitika → Arthur's Pass", drive:"🚗 約 3.5h",
   stay:{
     town:"亞瑟山口 Arthur's Pass Village 或 基督城（可選）",
     note:"若體力允許可直衝基督城，否則在亞瑟山口小屋過夜體驗高山環境。",
@@ -533,10 +771,10 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   }
 },
 {
-  day:11, title:"亞瑟山口 → 基督城", location:"Christchurch", drive:"🚗 約 1.5–2h",
+  day:13, title:"亞瑟山口 → 基督城 環島完成！", location:"Christchurch", drive:"🚗 約 1.5–2h",
   stay:{
     town:"基督城市中心（返回）",
-    note:"回到基督城，準備後段凱庫拉行程或休整。機場附近住宿也是選項。",
+    note:"回到基督城，環島完成！好好慶祝一下。",
     options:[
       {tier:"豪華", name:"The George Christchurch", nzd:"350–600"},
       {tier:"中價", name:"Sudima Christchurch City", nzd:"150–250"},
@@ -552,7 +790,7 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
     restaurants:[
       {emoji:"☕", name:"Arthur's Pass Store（早餐出發前）", cuisine:"早餐", note:"簡單的派 + 咖啡，補充能量後上路", rating:4.0, reviews:"500+", maps:"https://maps.google.com/?q=Arthurs+Pass+Store+New+Zealand"},
       {emoji:"🍔", name:"Smash Palace（基督城）", cuisine:"午餐 · 美式", note:"廢棄飛機改造的酒吧，漢堡 + 現釀啤酒，氣氛獨特", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"},
-      {emoji:"🥩", name:"Gatherings", cuisine:"晚餐 · 農場料理", note:"基督城最佳農場料理，菜單隨季節更換", rating:4.6, reviews:"1.7K", maps:"https://maps.google.com/?q=Gatherings+Christchurch"}
+      {emoji:"🥩", name:"Gatherings", cuisine:"晚餐 · 農場料理 · 環島慶祝！", note:"基督城最佳農場料理，菜單隨季節更換，慶祝環島完成", rating:4.6, reviews:"1.7K", maps:"https://maps.google.com/?q=Gatherings+Christchurch"}
     ],
     supermarket:"Countdown Moorhouse（回城後整補）",
     notes:"亞瑟山口回基督城過 Otira Viaduct 觀景台，可停車俯瞰壯觀橋樑。Kea 鸚鵡好奇心強，請勿餵食。"
@@ -560,93 +798,22 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   rainy:{
     attractions:[
       {emoji:"🦜", name:"Arthur's Pass Village（雨天瀑布更多）", note:"整個山谷在大雨後出現數十條臨時瀑布，非常壯觀", rating:4.8, reviews:"2.1K", maps:"https://maps.google.com/?q=Arthurs+Pass+Village+New+Zealand", to_next:"🚗 1.5h"},
-      {emoji:"🎨", name:"Christchurch Art Gallery（回城）", cuisine:"", note:"午後在免費藝廊躲雨，展覽品質穩定", rating:4.5, reviews:"3.8K", maps:"https://maps.google.com/?q=Christchurch+Art+Gallery", to_next:null}
+      {emoji:"🎨", name:"Christchurch Art Gallery（回城）", note:"午後在免費藝廊躲雨，展覽品質穩定", rating:4.5, reviews:"3.8K", maps:"https://maps.google.com/?q=Christchurch+Art+Gallery", to_next:null}
     ],
     restaurants:[
       {emoji:"☕", name:"Arthur's Pass Store（早餐）", cuisine:"早餐", note:"暖身暖胃再上路", rating:4.0, reviews:"500+", maps:"https://maps.google.com/?q=Arthurs+Pass+Store+New+Zealand"},
       {emoji:"🍔", name:"Smash Palace", cuisine:"午餐 · 美式", note:"室內風格強烈，雨天反而更有氣氛", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"},
-      {emoji:"🥩", name:"Gatherings", cuisine:"晚餐", note:"一頓好晚餐犒勞長途旅程", rating:4.6, reviews:"1.7K", maps:"https://maps.google.com/?q=Gatherings+Christchurch"}
+      {emoji:"🥩", name:"Gatherings", cuisine:"晚餐 · 環島慶祝！", note:"雨天一頓好晚餐犒勞長途旅程，慶祝環島完成！", rating:4.6, reviews:"1.7K", maps:"https://maps.google.com/?q=Gatherings+Christchurch"}
     ],
     supermarket:"Countdown Moorhouse",
     notes:"翻越亞瑟山口下雨能見度低，請開大燈減速，遇濃霧時路邊停車等待。"
   }
 },
 {
-  day:12, title:"凱庫拉觀鯨", location:"Kaikoura", drive:"🚗 約 2.5h",
-  stay:{
-    town:"凱庫拉 Kaikoura",
-    note:"小鎮住宿選擇有限，觀鯨船預訂後再訂房。若隔日返回基督城，可選早場觀鯨後回城。",
-    options:[
-      {tier:"中價", name:"Kaikoura Retreat", nzd:"150–250"},
-      {tier:"平價", name:"Albatross Backpacker Inn", nzd:"35–80"}
-    ]
-  },
-  sunny:{
-    attractions:[
-      {emoji:"🐋", name:"Whale Watch Kaikoura 觀鯨船", note:"抹香鯨出沒率 95%+，3–4h，NZD 165/人。提前 4–6 週訂票", rating:4.7, reviews:"5.3K", maps:"https://maps.google.com/?q=Whale+Watch+Kaikoura+New+Zealand", to_next:"🚗 10min"},
-      {emoji:"🦭", name:"Point Kean 海狗群聚", note:"停車場旁即有大量毛皮海狗，免費近距離觀察，不要觸摸", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Point+Kean+Seal+Colony+Kaikoura", to_next:"步行 5min"},
-      {emoji:"🦞", name:"路邊 Crayfish 龍蝦攤", note:"凱庫拉龍蝦新鮮便宜，路邊攤價格遠低於餐廳，必試", rating:4.5, reviews:"2.1K", maps:"https://maps.google.com/?q=Kaikoura+Seafood+BBQ+New+Zealand", to_next:null}
-    ],
-    restaurants:[
-      {emoji:"🦞", name:"Kaikoura Seafood BBQ（路邊攤）", cuisine:"午餐 · 海鮮", note:"現烤龍蝦 + 螃蟹，價格公道，路邊現點現吃", rating:4.6, reviews:"1.8K", maps:"https://maps.google.com/?q=Kaikoura+Seafood+BBQ"},
-      {emoji:"🥗", name:"Hislops Wholefood Café", cuisine:"晚餐 · 有機料理", note:"在地食材有機料理，蔬食友善，評價穩定", rating:4.5, reviews:"1.3K", maps:"https://maps.google.com/?q=Hislops+Cafe+Kaikoura"}
-    ],
-    supermarket:"Four Square Kaikoura（價格偏高，建議在基督城備妥）",
-    notes:"觀鯨船旺季極易售罄，建議提前 4–6 週訂。遇惡劣海況取消時有 80% 退款。"
-  },
-  rainy:{
-    attractions:[
-      {emoji:"🐋", name:"觀鯨船（視海況決定）", note:"風浪過大會取消並退款。可改訂觀鯨直升機（NZD 185+）", rating:4.7, reviews:"5.3K", maps:"https://maps.google.com/?q=Whale+Watch+Kaikoura+New+Zealand", to_next:"🚗 10min"},
-      {emoji:"🦭", name:"Point Kean 海狗（風雨仍可去）", note:"海狗全天候在岸邊，雨天牠們懶懶的更好拍", rating:4.6, reviews:"4.2K", maps:"https://maps.google.com/?q=Point+Kean+Seal+Colony+Kaikoura", to_next:null}
-    ],
-    restaurants:[
-      {emoji:"🥗", name:"Hislops Wholefood Café", cuisine:"午餐 + 晚餐", note:"小鎮雨天最舒適的室內用餐選擇", rating:4.5, reviews:"1.3K", maps:"https://maps.google.com/?q=Hislops+Cafe+Kaikoura"}
-    ],
-    supermarket:"Four Square Kaikoura",
-    notes:"觀鯨直升機是雨天最佳備案（不受海況影響），但需提前預約並確認能見度。"
-  }
-},
-{
-  day:13, title:"馬爾堡酒莊巡禮", location:"Marlborough / Blenheim", drive:"🚗 約 1.5h",
-  stay:{
-    town:"馬爾堡 / 布倫亨 Blenheim",
-    note:"南島最後一個大城市行程。明日可直飛基督城或從布倫亨機場離境。",
-    options:[
-      {tier:"中價", name:"Scenic Hotel Marlborough", nzd:"150–250"},
-      {tier:"平價", name:"Blenheim Holiday Park", nzd:"35–80"}
-    ]
-  },
-  sunny:{
-    attractions:[
-      {emoji:"🍷", name:"Cloudy Bay 雲灣酒莊", note:"紐西蘭最知名白蘇維翁酒莊，品酒體驗 NZD 15–30", rating:4.6, reviews:"2.5K", maps:"https://maps.google.com/?q=Cloudy+Bay+Winery+Marlborough", to_next:"🚗 15min"},
-      {emoji:"🍷", name:"Wither Hills Winery", cuisine:"", note:"景觀超美的酒莊，戶外品酒台可俯瞰葡萄園全景", rating:4.5, reviews:"2.8K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough", to_next:"🚗 30min"},
-      {emoji:"🌿", name:"Pelorus Bridge Scenic Reserve", note:"古老雨林 + 清澈溪流，比霍比屯取景更天然，步道輕鬆", rating:4.7, reviews:"1.9K", maps:"https://maps.google.com/?q=Pelorus+Bridge+Scenic+Reserve+New+Zealand", to_next:null}
-    ],
-    restaurants:[
-      {emoji:"🍷", name:"Wither Hills Winery Restaurant", cuisine:"午餐 · 搭配品酒", note:"酒莊內用餐，白蘇維翁配起司盤", rating:4.5, reviews:"1.2K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough"},
-      {emoji:"🥩", name:"Twelve Trees Restaurant", cuisine:"晚餐 · 精緻料理", note:"馬爾堡最佳晚餐，羔羊 + 本地葡萄酒搭配", rating:4.5, reviews:"1.1K", maps:"https://maps.google.com/?q=Twelve+Trees+Restaurant+Marlborough"}
-    ],
-    supermarket:"New World Blenheim（大型，最後整補）",
-    notes:"馬爾堡酒莊品酒通常 NZD 10–30，購酒後可折抵。Cloudy Bay 需提前預約品酒體驗。"
-  },
-  rainy:{
-    attractions:[
-      {emoji:"🍷", name:"Cloudy Bay 室內品酒（雨天照常）", note:"品酒室全程室內，雨天正好慢慢品味", rating:4.6, reviews:"2.5K", maps:"https://maps.google.com/?q=Cloudy+Bay+Winery+Marlborough", to_next:"🚗 15min"},
-      {emoji:"🍷", name:"Wither Hills Winery 室內品酒", note:"酒窖導覽 + 品酒，完全室內，下雨日完美選擇", rating:4.5, reviews:"2.8K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough", to_next:null}
-    ],
-    restaurants:[
-      {emoji:"🍷", name:"Wither Hills Winery Restaurant", cuisine:"午餐", note:"室內窗景仍優美，雨天品酒用餐", rating:4.5, reviews:"1.2K", maps:"https://maps.google.com/?q=Wither+Hills+Winery+Marlborough"},
-      {emoji:"🥩", name:"Twelve Trees Restaurant", cuisine:"晚餐", note:"旅程最後一頓好餐，值得精心品嚐", rating:4.5, reviews:"1.1K", maps:"https://maps.google.com/?q=Twelve+Trees+Restaurant+Marlborough"}
-    ],
-    supermarket:"New World Blenheim",
-    notes:"馬爾堡一年有 300 天晴天，雨天非常罕見。室內酒莊體驗依然充實。"
-  }
-},
-{
-  day:14, title:"返回基督城・旅程收尾", location:"Blenheim → Christchurch", drive:"🚗 約 2.5h 或 ✈️ 40min",
+  day:14, title:"基督城最後一天 / 離境", location:"Christchurch", drive:"✈️ 返程日",
   stay:{
     town:"基督城機場附近（末日）",
-    note:"末日依航班時間彈性安排。布倫亨有小機場可直飛基督城（Air NZ，約 NZD 80+）。",
+    note:"末日依航班時間彈性安排。建議住機場附近，方便退車和值機。",
     options:[
       {tier:"中價", name:"Sudima Christchurch Airport（機場旁）", nzd:"150–220"},
       {tier:"平價", name:"Airport Garden Court Motel", nzd:"90–140"}
@@ -654,22 +821,22 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
   },
   sunny:{
     attractions:[
-      {emoji:"🌿", name:"Nelson 尼爾森（若順路）", note:"若時間允許，紐西蘭最陽光城市，藝術家聚集地，Queens Gardens 值得一逛", rating:4.6, reviews:"3.1K", maps:"https://maps.google.com/?q=Nelson+New+Zealand", to_next:"🚗 1.5h"},
-      {emoji:"🛍️", name:"基督城 New Regent Street 最後巡禮", note:"彩色西班牙建築街道，紀念品 + 咖啡廳，旅程最後購物", rating:4.6, reviews:"4.5K", maps:"https://maps.google.com/?q=New+Regent+Street+Christchurch", to_next:null}
+      {emoji:"🛍️", name:"基督城 New Regent Street 最後巡禮", note:"彩色西班牙建築街道，紀念品 + 咖啡廳，旅程最後購物", rating:4.6, reviews:"4.5K", maps:"https://maps.google.com/?q=New+Regent+Street+Christchurch", to_next:"步行 10min"},
+      {emoji:"🌸", name:"Botanic Gardens 植物園（回味）", note:"離境前最後一次在美麗公園漫步，免費且無壓力", rating:4.7, reviews:"13K", maps:"https://maps.google.com/?q=Christchurch+Botanic+Gardens+New+Zealand", to_next:null}
     ],
     restaurants:[
-      {emoji:"☕", name:"Morrison Street Café（Nelson）", cuisine:"早餐 · 咖啡（若順路）", note:"尼爾森最佳早午餐，若順道而行", rating:4.7, reviews:"2.9K", maps:"https://maps.google.com/?q=Morrison+Street+Cafe+Nelson"},
-      {emoji:"🍔", name:"Smash Palace（基督城）", cuisine:"午餐・再見美食", note:"最後一頓基督城名店，與旅伴一起乾杯", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"}
+      {emoji:"☕", name:"C1 Espresso", cuisine:"早餐 · 告別餐", note:"最後一頓基督城早午餐，再體驗一次真空管送餐", rating:4.5, reviews:"5.2K", maps:"https://maps.google.com/?q=C1+Espresso+Christchurch"},
+      {emoji:"🍔", name:"Smash Palace（基督城）", cuisine:"午餐 · 最後告別", note:"最後一頓基督城名店，與旅伴一起乾杯", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"}
     ],
     supermarket:"Countdown Christchurch Airport（買機場伴手禮）",
     notes:"確認退租車時間與機場 drop-off 規定。建議在 check-in 前 2.5h 抵達機場。麥盧卡蜂蜜建議在超市買，比機場便宜。"
   },
   rainy:{
     attractions:[
-      {emoji:"🛍️", name:"基督城室內購物・最後巡禮", note:"Riccarton Mall 大型室內商場，最後一輪 UGG + 蜂蜜 + 羊毛採購", rating:4.2, reviews:"2.8K", maps:"https://maps.google.com/?q=Westfield+Riccarton+Christchurch", to_next:null}
+      {emoji:"🛍️", name:"Riccarton Mall 室內購物・最後巡禮", note:"大型室內商場，最後一輪 UGG + 蜂蜜 + 羊毛採購", rating:4.2, reviews:"2.8K", maps:"https://maps.google.com/?q=Westfield+Riccarton+Christchurch", to_next:null}
     ],
     restaurants:[
-      {emoji:"🍔", name:"Smash Palace", cuisine:"午餐・最後告別", note:"旅程最後一頓，雨天正好待在室內回憶旅程", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"}
+      {emoji:"🍔", name:"Smash Palace", cuisine:"午餐 · 最後告別", note:"旅程最後一頓，雨天正好待在室內回憶旅程", rating:4.4, reviews:"2.9K", maps:"https://maps.google.com/?q=Smash+Palace+Christchurch"}
     ],
     supermarket:"Countdown Airport",
     notes:"末日下雨不遺憾，室內購物 + 整理行李 + 慢慢用餐，是完美的旅程收尾方式。"
@@ -677,254 +844,373 @@ const tripData = { title:"紐西蘭南島 14 天", days:[
 }
 ]};
 
-// ═══════════════════════════════════════════════════════
-//  PHOTO LOOKUP  (Wikimedia Commons, keyed by attraction name fragment)
-//  Add / replace URLs here anytime — no other code needs to change.
-// ═══════════════════════════════════════════════════════
-const PHOTOS = {
-  "Botanic Gardens 植物園": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/ChristchurchBotanicGardens.jpg/480px-ChristchurchBotanicGardens.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Christchurch_botanical_garden_3.jpg/480px-Christchurch_botanical_garden_3.jpg"
-  ],
-  "Christchurch Tram 復古電車": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Christchurch_Tramway.jpg/480px-Christchurch_Tramway.jpg"
-  ],
-  "Antarctic Centre 南極體驗館": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/International_Antarctic_Centre_Christchurch.jpg/480px-International_Antarctic_Centre_Christchurch.jpg"
-  ],
-  "Lake Tekapo 牛奶藍湖泊": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Lake_Tekapo_2.jpg/480px-Lake_Tekapo_2.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Lake_Tekapo_reflections.jpg/480px-Lake_Tekapo_reflections.jpg"
-  ],
-  "Church of the Good Shepherd": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Church_of_the_Good_Shepherd%2C_Lake_Tekapo_1.jpg/480px-Church_of_the_Good_Shepherd%2C_Lake_Tekapo_1.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Church_of_Good_Shepherd_Lake_Tekapo_NZ.jpg/480px-Church_of_Good_Shepherd_Lake_Tekapo_NZ.jpg"
-  ],
-  "Mt John Observatory": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Milky_Way_over_Lake_Tekapo.jpg/480px-Milky_Way_over_Lake_Tekapo.jpg"
-  ],
-  "Hooker Valley Track": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Hooker_Valley_Track_NZ.jpg/480px-Hooker_Valley_Track_NZ.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Aoraki_Mount_Cook_from_Hooker_Valley.jpg/480px-Aoraki_Mount_Cook_from_Hooker_Valley.jpg"
-  ],
-  "Tasman Glacier": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Tasman_Glacier_2008.jpg/480px-Tasman_Glacier_2008.jpg"
-  ],
-  "Lindis Pass": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Lindis_Pass_New_Zealand.jpg/480px-Lindis_Pass_New_Zealand.jpg"
-  ],
-  "Arrowtown 箭鎮": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Arrowtown_autumn.jpg/480px-Arrowtown_autumn.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Arrowtown_New_Zealand.jpg/480px-Arrowtown_New_Zealand.jpg"
-  ],
-  "Skyline Gondola": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Skyline_Queenstown.jpg/480px-Skyline_Queenstown.jpg"
-  ],
-  "Kawarau Bridge Bungee": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Kawarau_Bridge_bungee.jpg/480px-Kawarau_Bridge_bungee.jpg"
-  ],
-  "Queenstown Gardens": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Queenstown_from_the_Remarkables.jpg/480px-Queenstown_from_the_Remarkables.jpg"
-  ],
-  "Mirror Lakes": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Mirror_Lakes_New_Zealand.jpg/480px-Mirror_Lakes_New_Zealand.jpg"
-  ],
-  "Milford Sound": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Milford_Sound_04.jpg/480px-Milford_Sound_04.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Milford_Sound_Mitre_Peak.jpg/480px-Milford_Sound_Mitre_Peak.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Milford_sound_waterfall.jpg/480px-Milford_sound_waterfall.jpg"
-  ],
-  "Wanaka Tree": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/That_Wanaka_Tree.jpg/480px-That_Wanaka_Tree.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Wanaka_tree_sunset.jpg/480px-Wanaka_tree_sunset.jpg"
-  ],
-  "Roy's Peak Track": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Roys_Peak_Wanaka.jpg/480px-Roys_Peak_Wanaka.jpg"
-  ],
-  "Blue Pools": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Blue_Pools_Haast_Pass_NZ.jpg/480px-Blue_Pools_Haast_Pass_NZ.jpg"
-  ],
-  "Fox Glacier Walk": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Fox_Glacier_New_Zealand.jpg/480px-Fox_Glacier_New_Zealand.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Fox_Glacier_terminal_face.jpg/480px-Fox_Glacier_terminal_face.jpg"
-  ],
-  "Lake Matheson": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lake_Matheson_NZ.jpg/480px-Lake_Matheson_NZ.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lake_Matheson_reflections.jpg/480px-Lake_Matheson_reflections.jpg"
-  ],
-  "Franz Josef Glacier": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Franz_Josef_Glacier.jpg/480px-Franz_Josef_Glacier.jpg"
-  ],
-  "Hokitika Gorge": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Hokitika_Gorge.jpg/480px-Hokitika_Gorge.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Hokitika_gorge_blue_water.jpg/480px-Hokitika_gorge_blue_water.jpg"
-  ],
-  "Whale Watch Kaikoura": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Sperm_whale_Kaikoura.jpg/480px-Sperm_whale_Kaikoura.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Kaikoura_whale_watching.jpg/480px-Kaikoura_whale_watching.jpg"
-  ],
-  "Point Kean 海狗": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Fur_seals_Kaikoura.jpg/480px-Fur_seals_Kaikoura.jpg"
-  ],
-  "Cloudy Bay": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Cloudy_Bay_Winery_Marlborough.jpg/480px-Cloudy_Bay_Winery_Marlborough.jpg"
-  ]
-};
+// STATE
+const S = { open: null, wx: {}, featureOpen: false, activeTab: 0 };
 
-// ═══════════════════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════════════════
-const S = { open: null, wx: {} };
+// Expense & member state
+let members = JSON.parse(localStorage.getItem("nz_members") || '["旅人 A","旅人 B","旅人 C","旅人 D"]');
+let expenses = JSON.parse(localStorage.getItem("nz_expenses") || "[]");
+
+// Packing checklist state
+const PACKING_CATS = [
+  { cat:"📋 證件", items:["護照","國際駕照","NZ ETA（需事先申請）","旅遊保險卡","信用卡（備2張）","少量現金NZD"] },
+  { cat:"📱 電子", items:["手機+充電器","NZ轉接頭（Type I/三腳扁）","行動電源","相機+記憶卡","耳機"] },
+  { cat:"👕 衣物", items:["防水外套（每天必備）","保暖中層（抓絨/羽絨）","登山鞋（防水）","運動鞋","泳衣（溫泉用）","帽子+太陽眼鏡","手套（高山用）"] },
+  { cat:"💊 藥品", items:["暈車藥","止痛藥","腸胃藥","創可貼急救包","驅蚊液","防曬乳SPF50+"] },
+  { cat:"🎒 旅行", items:["行李秤","快乾毛巾","折疊雨傘","環保購物袋","水壺（步道必備）","零錢袋（停車計費）","護唇膏"] },
+  { cat:"🚗 開車", items:["確認租車保險範圍","下載Google Maps離線地圖","備妥緊急聯絡號碼截圖"] }
+];
+let packingState = JSON.parse(localStorage.getItem("nz_packing") || "{}");
+
+function saveMembers(){ localStorage.setItem("nz_members", JSON.stringify(members)); }
+function saveExpenses(){ localStorage.setItem("nz_expenses", JSON.stringify(expenses)); }
+function savePacking(){ localStorage.setItem("nz_packing", JSON.stringify(packingState)); }
 
 function toggleDay(n){ S.open = S.open===n ? null : n; render(); }
 function setWx(n,m){ S.wx[n]=m; render(); }
+function mapsClick(url,e){ e.stopPropagation(); if(url) window.open(url,"_blank"); }
 
-function mapsClick(url, e){
-  e.stopPropagation();
-  if(url) window.open(url, '_blank');
-}
-
-// ═══════════════════════════════════════════════════════
-//  RENDER HELPERS
-// ═══════════════════════════════════════════════════════
-function stars(r){ return r>0 ? `<span class="star">★</span><span class="rating-val">${r}</span>` : ''; }
-function reviewTxt(r){ return r ? `<span class="rating-cnt">(${r})</span>` : ''; }
-function mapsIcon(url){ return url ? `<span class="maps-hint">📍 地圖</span>` : ''; }
+function stars(r){ return r>0 ? '<span class="star">★</span><span class="rating-val">'+r+'</span>' : ""; }
+function reviewTxt(r){ return r ? '<span class="rating-cnt">('+r+')</span>' : ""; }
+function mapsIcon(url){ return url ? '<span class="maps-hint">📍 地圖</span>' : ""; }
 
 function lookupPhotos(name){
   const key = Object.keys(PHOTOS).find(k => name.includes(k));
   return key ? PHOTOS[key] : [];
 }
 
+function lookupCost(name){
+  const key = Object.keys(COSTS).find(k => name.includes(k));
+  return key ? COSTS[key] : null;
+}
+
 function renderPhotos(name){
   const photos = lookupPhotos(name);
-  if(!photos.length) return '';
-  const imgs = photos.map(p =>
-    `<img class="photo-thumb" src="${p}" loading="lazy" onerror="this.style.display='none'" onclick="event.stopPropagation();window.open('${p}','_blank')" alt="">`
-  ).join('');
-  return `<div class="photo-strip">${imgs}</div>`;
+  if(!photos.length) return "";
+  const imgs = photos.map(function(ph){
+    return '<img class="photo-thumb" src="'+ph+'" loading="lazy" onerror="this.style.display=\'none\'" onclick="event.stopPropagation();window.open(this.src,\'_blank\')" alt="">';
+  }).join("");
+  return '<div class="photo-strip">'+imgs+"</div>";
+}
+
+function renderCost(name){
+  const cost = lookupCost(name);
+  if(!cost) return "";
+  return '<span class="cost-tag">💰 '+cost+"</span>";
 }
 
 function renderAttr(a, isRainy){
-  const clickable = a.maps ? `onclick="mapsClick('${a.maps}',event)"` : '';
-  return `
-    <div class="attr-item" ${clickable} role="${a.maps?'link':''}" tabindex="${a.maps?0:-1}">
-      <span class="attr-em">${a.emoji}</span>
-      <div class="attr-body">
-        <div class="attr-top">
-          <span class="attr-name">${a.name}</span>
-          <span class="attr-rating">${stars(a.rating)} ${reviewTxt(a.reviews)}</span>
-        </div>
-        <div class="attr-note">${a.note}</div>
-        ${renderPhotos(a.name)}
-        ${mapsIcon(a.maps)}
-      </div>
-    </div>
-    ${a.to_next ? `<div class="transit"><div class="transit-line"></div><span class="transit-txt">↕ ${a.to_next}</span><div class="transit-line"></div></div>` : ''}
-  `;
+  const clickable = a.maps ? 'onclick="mapsClick(\"'+a.maps+'\",event)"' : "";
+  const transit = a.to_next ? '<div class="transit"><div class="transit-line"></div><span class="transit-txt">↕ '+a.to_next+'</span><div class="transit-line"></div></div>' : "";
+  return '<div class="attr-item" '+clickable+' role="'+( a.maps?"link":"")+'" tabindex="'+( a.maps?0:-1)+'">'+
+    '<span class="attr-em">'+a.emoji+"</span>"+
+    '<div class="attr-body">'+
+      '<div class="attr-top"><span class="attr-name">'+a.name+'</span><span class="attr-rating">'+stars(a.rating)+" "+reviewTxt(a.reviews)+"</span></div>"+
+      '<div class="attr-note">'+a.note+"</div>"+
+      renderCost(a.name)+
+      renderPhotos(a.name)+
+      mapsIcon(a.maps)+
+    "</div>"+
+  "</div>"+transit;
 }
 
 function renderRest(r){
-  const clickable = r.maps ? `onclick="mapsClick('${r.maps}',event)"` : '';
-  return `
-    <div class="rest-item" ${clickable} role="${r.maps?'link':''}" tabindex="${r.maps?0:-1}">
-      <span class="rest-em">${r.emoji}</span>
-      <div class="rest-body">
-        <div class="rest-top">
-          <div>
-            <div class="rest-name">${r.name}</div>
-            <div class="rest-type">${r.cuisine}</div>
-          </div>
-          <span class="attr-rating">${stars(r.rating)} ${reviewTxt(r.reviews)}</span>
-        </div>
-        <div class="rest-note">${r.note}</div>
-        ${mapsIcon(r.maps)}
-      </div>
-    </div>
-  `;
+  const clickable = r.maps ? 'onclick="mapsClick(\"'+r.maps+'\",event)"' : "";
+  return '<div class="rest-item" '+clickable+' role="'+( r.maps?"link":"")+'" tabindex="'+( r.maps?0:-1)+'">'+
+    '<span class="rest-em">'+r.emoji+"</span>"+
+    '<div class="rest-body">'+
+      '<div class="rest-top"><div><div class="rest-name">'+r.name+"</div>"+'<div class="rest-type">'+r.cuisine+"</div></div>"+'<span class="attr-rating">'+stars(r.rating)+" "+reviewTxt(r.reviews)+"</span></div>"+
+      '<div class="rest-note">'+r.note+"</div>"+
+      mapsIcon(r.maps)+
+    "</div>"+
+  "</div>";
 }
 
-function renderStay(stay, isRainy){
-  const tiers = stay.options.map(o=>`
-    <div class="stay-tier">
-      <span class="tier-tag">${o.tier}</span>
-      <span class="tier-name">${o.name}</span>
-      <span class="tier-price">NZD ${o.nzd}</span>
-    </div>`).join('');
-  return `
-    <div class="stay-box">
-      <div class="stay-town">🏨 ${stay.town}</div>
-      ${stay.note ? `<div class="stay-note">${stay.note}</div>` : ''}
-      <div class="stay-tiers">${tiers}</div>
-    </div>`;
+function renderStay(stay){
+  const tiers = stay.options.map(o=>
+    '<div class="stay-tier"><span class="tier-tag">'+o.tier+"</span>"+'<span class="tier-name">'+o.name+"</span>"+'<span class="tier-price">NZD '+o.nzd+"</span></div>"
+  ).join("");
+  return '<div class="stay-box"><div class="stay-town">🏨 '+stay.town+"</div>"+
+    (stay.note?'<div class="stay-note">'+stay.note+"</div>":"")+
+    '<div class="stay-tiers">'+tiers+"</div></div>";
 }
 
-// ═══════════════════════════════════════════════════════
-//  MAIN RENDER
-// ═══════════════════════════════════════════════════════
 function render(){
-  const root = document.getElementById('appRoot');
+  const root = document.getElementById("appRoot");
   let html = '<div class="reg-wrap"><div class="reg-div"><span>🏔️ 南島行程</span></div></div><div class="days-wrap">';
-
   tripData.days.forEach(day=>{
-    const isOpen  = S.open === day.day;
-    const wx      = S.wx[day.day] || 'sunny';
-    const isRainy = wx === 'rainy';
-    const plan    = day[wx];
-
-    const attrs   = plan.attractions.map(a=>renderAttr(a,isRainy)).join('');
-    const rests   = plan.restaurants.map(r=>renderRest(r)).join('');
-
-    html += `
-    <div class="card${isOpen?' open':''}${isRainy?' rainy':''}">
-      <div class="card-hdr" onclick="toggleDay(${day.day})">
-        <div class="day-badge">Day ${day.day}</div>
-        <div class="card-info">
-          <span class="card-title">${day.title}</span>
-          <div class="card-meta">
-            <span class="mbadge">${day.drive}</span>
-            ${isRainy?'<span class="mbadge">🌧 備案</span>':''}
-          </div>
-        </div>
-        <div class="chev">▾</div>
-      </div>
-      <div class="card-body${isOpen?' open':''}">
-        <div class="body-inner">
-          <div class="wtog">
-            <button class="wbtn sunny${wx==='sunny'?' active':''}" onclick="setWx(${day.day},'sunny');event.stopPropagation()">☀️ 晴天</button>
-            <button class="wbtn rainy${wx==='rainy'?' active':''}" onclick="setWx(${day.day},'rainy');event.stopPropagation()">🌧 下雨了</button>
-          </div>
-
-          <div class="slbl">📍 景點行程</div>
-          ${attrs}
-
-          <div class="slbl">🍽️ 推薦餐廳</div>
-          <div class="rest-list">${rests}</div>
-
-          <div class="slbl">🏨 今晚住宿建議</div>
-          ${renderStay(day.stay, isRainy)}
-
-          <div class="notes">🛒 超市：${plan.supermarket}<br><br>💡 ${plan.notes}</div>
-        </div>
-      </div>
-    </div>`;
+    const isOpen = S.open === day.day;
+    const wx = S.wx[day.day] || "sunny";
+    const isRainy = wx === "rainy";
+    const plan = day[wx];
+    const attrs = plan.attractions.map(a=>renderAttr(a,isRainy)).join("");
+    const rests = plan.restaurants.map(r=>renderRest(r)).join("");
+    html += '<div class="card'+( isOpen?" open":"")+( isRainy?" rainy":"")+"">"+
+      '<div class="card-hdr" onclick="toggleDay('+day.day+')">'+
+        '<div class="day-badge">Day '+day.day+"</div>"+
+        '<div class="card-info"><span class="card-title">'+day.title+"</span>"+
+          '<div class="card-meta"><span class="mbadge">'+day.drive+"</span>"+
+          (isRainy?'<span class="mbadge">🌧 備案</span>':"")+
+          "</div></div>"+
+        '<div class="chev">▾</div>'+
+      "</div>"+
+      '<div class="card-body'+( isOpen?" open":"")+"">"+
+        '<div class="body-inner">'+
+          '<div class="wtog">'+
+            '<button class="wbtn sunny'+( wx==="sunny"?" active":"")+'" onclick="setWx('+day.day+','+"'sunny'"+');event.stopPropagation()">☀️ 晴天</button>'+
+            '<button class="wbtn rainy'+( wx==="rainy"?" active":"")+'" onclick="setWx('+day.day+','+"'rainy'"+');event.stopPropagation()">🌧 下雨了</button>'+
+          "</div>"+
+          '<div class="slbl">📍 景點行程</div>'+attrs+
+          '<div class="slbl">🍽️ 推薦餐廳</div><div class="rest-list">'+rests+"</div>"+
+          '<div class="slbl">🏨 今晚住宿建議</div>'+renderStay(day.stay)+
+          '<div class="notes">🛒 超市：'+plan.supermarket+"<br><br>💡 "+plan.notes+"</div>"+
+        "</div>"+
+      "</div>"+
+    "</div>";
   });
-
-  html += '</div>';
+  html += "</div>";
   root.innerHTML = html;
   updateHeader();
 }
 
 function updateHeader(){
-  const viewed = new Set([...Object.keys(S.wx).map(Number), ...(S.open?[S.open]:[])]).size;
-  const rainy  = Object.values(S.wx).filter(v=>v==='rainy').length;
-  document.getElementById('progFill').style.width = Math.min(Math.round(viewed/14*100),100)+'%';
-  document.getElementById('dayPill').textContent  = S.open ? `Day ${S.open} / 14` : '— / 14';
-  document.getElementById('progLbl').textContent  =
-    S.open ? `Day ${S.open} 已展開${rainy?` · ${rainy} 天切換備案`:''}` :
-    viewed  ? `已查看 ${viewed} / 14 天` : '點擊任一天展開行程';
+  const viewed = new Set([...Object.keys(S.wx).map(Number),...(S.open?[S.open]:[])]).size;
+  const rainy = Object.values(S.wx).filter(v=>v==="rainy").length;
+  document.getElementById("progFill").style.width = Math.min(Math.round(viewed/14*100),100)+"%";
+  document.getElementById("dayPill").textContent = S.open ? "Day "+S.open+" / 14" : "— / 14";
+  document.getElementById("progLbl").textContent =
+    S.open ? "Day "+S.open+" 已展開"+(rainy?" · "+rainy+" 天切換備案":"") :
+    viewed  ? "已查看 "+viewed+" / 14 天" : "點擊任一天展開行程";
 }
 
+function calcSettlement(exps, mems){
+  const paid = Array(mems.length).fill(0);
+  exps.forEach(function(e){ if(e.payer>=0 && e.payer<mems.length) paid[e.payer] += e.amount; });
+  const total = paid.reduce(function(s,v){return s+v;},0);
+  const avg = total / mems.length;
+  const bal = paid.map(function(pp){ return +(pp - avg).toFixed(2); });
+  const pos = bal.map(function(b,i){return {i,b};}).filter(function(x){return x.b>0.01;}).sort(function(a,b){return b.b-a.b;});
+  const neg = bal.map(function(b,i){return {i,b};}).filter(function(x){return x.b<-0.01;}).sort(function(a,b){return a.b-b.b;});
+  const tx = [];
+  let pi=0,ni=0;
+  while(pi<pos.length && ni<neg.length){
+    const amt = Math.min(pos[pi].b, -neg[ni].b);
+    tx.push({from:neg[ni].i, to:pos[pi].i, amount:+amt.toFixed(2)});
+    pos[pi].b -= amt; neg[ni].b += amt;
+    if(pos[pi].b < 0.01) pi++;
+    if(neg[ni].b > -0.01) ni++;
+  }
+  return {paid, total, avg, tx};
+}
+
+function renderFeaturePanel(){
+  const root = document.getElementById("featureRoot");
+  const isOpen = S.featureOpen;
+  const tab = S.activeTab;
+  const tabLabels = ["行程總覽","費用記錄","旅遊工具"];
+  const tabBtns = tabLabels.map(function(t,i){
+    return "<button class=\"ftab"+(tab===i?" active":"")+" \" onclick=\"setTab("+i+")\">" + t + "</button>";
+  }).join("");
+  const body = (tab===0?renderTab0():tab===1?renderTab1():renderTab2());
+  root.innerHTML =
+    "<div class=\"feature-panel"+(isOpen?" open":"")+"\">"+
+    "<div class=\"feature-hdr\" onclick=\"toggleFeature()\">"+
+    "<div class=\"feature-hdr-title\">🗺️ 功能面板</div>"+
+    "<span class=\"feature-hdr-sub\">行程總覽 · 費用記錄 · 旅遊工具</span>"+
+    "<span class=\"fchev\">▾</span></div>"+
+    "<div class=\"feature-body"+(isOpen?" open":"")+"\">"+
+    "<div class=\"feature-inner\">"+
+    "<div class=\"ftabs\">"+tabBtns+"</div>"+
+    body+
+    "</div></div></div>";
+}
+function toggleFeature(){ S.featureOpen=!S.featureOpen; renderFeaturePanel(); }
+function setTab(i){ S.activeTab=i; renderFeaturePanel(); }
+
+function renderTab0(){
+  return "<div class=\"route-text\">CHC → 凱庫拉 → 馬爾堡 → 漢默 → 蒂卡波 → 庫克山 → 皇后鎮 → 米爾福德 → 瓦納卡 → 西海岸 → 亞瑟山口 → CHC 🔄</div>"+
+  "<div class=\"section-title\">💰 預算估算（每人，4人合租分攤）</div>"+
+  "<table class=\"budget-table\"><tr><th>項目</th><th>估算</th></tr>"+
+  "<tr><td>交通（租車+油費）</td><td>NZD 350-450</td></tr>"+
+  "<tr><td>住宿（雙人房×2）</td><td>NZD 1,100-1,400</td></tr>"+
+  "<tr><td>景點門票</td><td>NZD 550-700</td></tr>"+
+  "<tr><td>餐飲</td><td>NZD 900-1,200</td></tr>"+
+  "<tr><td>雜費/緊急備用</td><td>NZD 150-200</td></tr>"+
+  "<tr class=\"total-row\"><td>合計/人</td><td>NZD 3,050-3,950</td></tr>"+
+  "<tr><td>TWD 換算</td><td>約 NT$61,000-81,000</td></tr>"+
+  "<tr><td>選配冒險活動</td><td>+NZD 300-550</td></tr></table>"+
+  "<div class=\"section-title\">📅 預訂時間建議</div>"+
+  "<div class=\"booking-group\"><div class=\"booking-group-lbl\">🔴 立即預訂（出發前3個月）</div>"+
+  "<div class=\"booking-item\"><span>•</span><span>租車（RentalCars/JUCY/Apex，旺季必搶）</span></div>"+
+  "<div class=\"booking-item\"><span>•</span><span>皇后鎮旺季住宿</span></div>"+
+  "<div class=\"booking-item\"><span>•</span><span>蒂卡波旺季住宿（尤其12–2月）</span></div></div>"+
+  "<div class=\"booking-group\"><div class=\"booking-group-lbl\">🟠 提前4–6週訂</div>"+
+  "<div class=\"booking-item\"><span>•</span><span>Whale Watch Kaikoura（NZD 165，常售罄）</span></div>"+
+  "<div class=\"booking-item\"><span>•</span><span>Mt John Observatory 星空導覽（NZD 145）</span></div></div>"+
+  "<div class=\"booking-group\"><div class=\"booking-group-lbl\">🟡 提前2–3週訂</div>"+
+  "<div class=\"booking-item\"><span>•</span><span>Milford Sound 遊船 Real Journeys</span></div>"+
+  "<div class=\"booking-item\"><span>•</span><span>皇后鎮人氣餐廳（Rata / Botswana Butchery）</span></div></div>"+
+  "<div class=\"booking-group\"><div class=\"booking-group-lbl\">🟢 出發前可訂</div>"+
+  "<div class=\"booking-item\"><span>•</span><span>Cloudy Bay 品酒體驗</span></div>"+
+  "<div class=\"booking-item\"><span>•</span><span>跳傘 / 彈跳（視天氣可免費改期）</span></div>"+
+  "<div class=\"booking-item\"><span>•</span><span>Hanmer Springs 溫泉（通常不需預約）</span></div></div>";
+}
+
+function renderTab1(){
+  const memberInputs = members.map(function(m,i){
+    return "<input class=\"member-inp\" type=\"text\" value=\""+m+"__QUOT__" placeholder=\"旅人 "+(i+1)+"\" data-mi=\""+i+"\" onblur=\"updateMember(this)\" />";
+  }).join("").replace(/__QUOT__/g,""");
+  const expListHTML = expenses.length===0
+    ? "<div style=\"font-size:12px;color:var(--tl);padding:8px 0\">尚無費用記錄</div>"
+    : expenses.map(function(e,i){
+        return "<div class=\"expense-list-item\">"+
+          "<span class=\"eli-payer\">"+members[e.payer]+"</span>"+
+          "<span class=\"eli-amt\">NZD "+e.amount.toFixed(2)+"</span>"+
+          "<span class=\"eli-desc\">"+e.desc+"</span>"+
+          "<button class=\"eli-del\" onclick=\"delExpense("+i+")\">✕</button>"+
+        "</div>";
+      }).join("");
+  const memberOpts = members.map(function(m,i){
+    return "<option value=\""+i+"\">"+m+"</option>";
+  }).join("");
+  const s = expenses.length>0 ? calcSettlement(expenses,members) : null;
+  let summaryHTML = "";
+  if(s){
+    const perRow = members.map(function(m,i){
+      return "<div class=\"expense-summary-row\"><span>"+m+"</span><span>NZD "+s.paid[i].toFixed(2)+"</span></div>";
+    }).join("");
+    summaryHTML = "<div class=\"expense-summary\">"+perRow+
+      "<div class=\"expense-summary-row total\"><span>總計</span><span>NZD "+s.total.toFixed(2)+"</span></div>"+
+      "<div class=\"expense-summary-row\"><span>每人應付</span><span>NZD "+s.avg.toFixed(2)+"</span></div>"+
+      "</div>";
+    if(s.tx.length===0){
+      summaryHTML += "<div class=\"settle-balanced\">✅ 帳目平衡！</div>";
+    } else {
+      summaryHTML += "<div class=\"section-title\">💸 結算明細</div>";
+      s.tx.forEach(function(t){
+        summaryHTML += "<div class=\"settle-tx\">"+
+          "<span>"+members[t.from]+"</span>"+
+          "<span style=\"color:var(--tl)\">→ 需付給 →</span>"+
+          "<span>"+members[t.to]+"</span>"+
+          "<span style=\"margin-left:auto;font-weight:700\">NZD "+t.amount.toFixed(2)+"</span>"+
+        "</div>";
+      });
+    }
+  }
+  return "<div class=\"section-title\">👥 旅伴名稱（點擊修改）</div>"+
+    "<div class=\"member-inputs\">"+memberInputs+"</div>"+
+    "<div class=\"section-title\">➕ 新增費用</div>"+
+    "<div class=\"expense-form\">"+
+    "<select id=\"exp-payer\">"+memberOpts+"</select>"+
+    "<input type=\"number\" id=\"exp-amt\" placeholder=\"NZD\" min=\"0\" step=\"0.01\" />"+
+    "<input type=\"text\" id=\"exp-desc\" placeholder=\"描述（如：米爾福德遊船）\" />"+
+    "<button class=\"btn-add\" onclick=\"addExpense()\">新增</button>"+
+    "</div>"+
+    "<div class=\"section-title\">📋 費用清單 <button class=\"btn-clr\" onclick=\"clearExpenses()\" style=\"margin-left:8px\">清空</button></div>"+
+    "<div class=\"expense-list\">"+expListHTML+"</div>"+
+    summaryHTML;
+}
+
+function addExpense(){
+  const payer = parseInt(document.getElementById("exp-payer").value,10);
+  const amount = parseFloat(document.getElementById("exp-amt").value);
+  const desc = document.getElementById("exp-desc").value.trim();
+  if(isNaN(amount)||amount<=0) return;
+  expenses.push({payer, amount, desc: desc||"費用"});
+  saveExpenses();
+  renderFeaturePanel();
+}
+function delExpense(i){ expenses.splice(i,1); saveExpenses(); renderFeaturePanel(); }
+function clearExpenses(){ expenses=[]; saveExpenses(); renderFeaturePanel(); }
+function updateMember(el){
+  const i = parseInt(el.dataset.mi,10);
+  const v = el.value.trim();
+  if(v) members[i]=v;
+  saveMembers();
+  renderFeaturePanel();
+}
+
+function renderTab2(){
+  return renderConverter() + renderPacking() + renderInfoCards();
+}
+
+function renderConverter(){
+  return "<div class=\"section-title\">💱 NZD ↔ TWD 換算器</div>"+
+    "<div class=\"converter\">"+
+    "<div class=\"conv-group\"><div class=\"conv-lbl\">NZD</div>"+
+    "<input class=\"conv-inp\" id=\"conv-nzd\" type=\"number\" placeholder=\"0\" oninput=\"convFromNZD(this.value)\" /></div>"+
+    "<div class=\"conv-sym\">⇄</div>"+
+    "<div class=\"conv-group\"><div class=\"conv-lbl\">TWD</div>"+
+    "<input class=\"conv-inp\" id=\"conv-twd\" type=\"number\" placeholder=\"0\" oninput=\"convFromTWD(this.value)\" /></div></div>"+
+    "<div class=\"conv-note\">1 NZD ≈ 20.5 TWD（僅供參考，匯率每日變動）</div>"+
+    "<div class=\"currency-ref\">"+
+    [10,50,100,500].map(function(v){
+      return "<div class=\"currency-ref-cell\"><div class=\"currency-ref-nzd\">NZD "+v+"</div><div class=\"currency-ref-twd\">≈ NT$"+(v*20.5).toFixed(0)+"</div></div>";
+    }).join("")+
+    "</div>";
+}
+function convFromNZD(v){ const el=document.getElementById("conv-twd"); if(el) el.value=v?(+v*20.5).toFixed(0):""; }
+function convFromTWD(v){ const el=document.getElementById("conv-nzd"); if(el) el.value=v?(+v/20.5).toFixed(2):""; }
+
+function renderPacking(){
+  const allItems = PACKING_CATS.reduce(function(arr,c){return arr.concat(c.items.map(function(it){return c.cat+"::"+it;}));}, []);
+  const checkedCount = allItems.filter(function(k){return packingState[k];}).length;
+  const pct = allItems.length>0 ? Math.round(checkedCount/allItems.length*100) : 0;
+  let html = "<div class=\"section-title\">🎒 行李打包清單</div>"+
+    "<div class=\"packing-progress-lbl\">"+checkedCount+" / "+allItems.length+" 已打包（"+pct+"%）</div>"+
+    "<div class=\"packing-progress-bar-wrap\"><div class=\"packing-progress-bar\" style=\"width:"+pct+"%\"></div></div>";
+  PACKING_CATS.forEach(function(cat){
+    html += "<div class=\"packing-cat\">"+cat.cat+"</div>";
+    cat.items.forEach(function(item){
+      const key = cat.cat+"::"+item;
+      const checked = !!packingState[key];
+      html += "<label class=\"packing-item"+(checked?" checked":"")+"\">"+
+        "<input type=\"checkbox\" "+(checked?"checked":"")+" onchange=\"togglePacking('"+key.replace(/'/g,"&#39;")+"')\" />"+
+        item+"</label>";
+    });
+  });
+  return html;
+}
+function togglePacking(key){ packingState[key]=!packingState[key]; savePacking(); renderFeaturePanel(); }
+
+function renderInfoCards(){
+  return "<div class=\"section-title\">ℹ️ 旅遊資訊卡</div>"+
+  "<div class=\"info-grid\">"+
+  "<div class=\"info-card\"><div class=\"info-card-title\">🆘 緊急聯絡</div><ul>"+
+  "<li>緊急救援：111（警察/火警/救護）</li>"+
+  "<li>道路故障：*555（AA 緊急救援）</li>"+
+  "<li>台灣代表處：+64-4-473-6474</li>"+
+  "<li>旅客服務：0800 368 368</li>"+
+  "</ul></div>"+
+  "<div class=\"info-card\"><div class=\"info-card-title\">📱 必備 App</div><ul>"+
+  "<li>Google Maps（離線下載南島）</li>"+
+  "<li>Maps.me（備用離線地圖）</li>"+
+  "<li>MetService.com（NZ官方天氣）</li>"+
+  "<li>XE Currency（即時匯率）</li>"+
+  "<li>DOC NZ（國家公園資訊）</li>"+
+  "<li>GasBuddy NZ（最便宜加油站）</li>"+
+  "</ul></div>"+
+  "<div class=\"info-card\"><div class=\"info-card-title\">🚗 紐西蘭開車</div><ul>"+
+  "<li>靠左行駛（最重要！）</li>"+
+  "<li>市區限速 50km/h，鄉村 100km/h</li>"+
+  "<li>圓環：讓右邊來車先行</li>"+
+  "<li>油價約 NZD 2.5-3/公升</li>"+
+  "<li>P牌停車：注意時間限制</li>"+
+  "<li>山路/冬季：備雪鍊或租AWD</li>"+
+  "</ul></div>"+
+  "<div class=\"info-card\"><div class=\"info-card-title\">💡 實用提示</div><ul>"+
+  "<li>SIM卡：機場買Spark或Vodafone 30天約NZD 40</li>"+
+  "<li>小費：不強制，滿意服務可給10%</li>"+
+  "<li>超市：New World / Countdown最划算</li>"+
+  "<li>GST退稅：離境時申請（消費滿NZD 300）</li>"+
+  "<li>自來水可直接飲用</li>"+
+  "</ul></div>"+
+  "</div>";
+}
+
+
+// Initialize
+renderFeaturePanel();
 render();
 </script>
 </body>
