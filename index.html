@@ -945,7 +945,7 @@ function render(){
     const plan = day[wx];
     const attrs = plan.attractions.map(a=>renderAttr(a,isRainy)).join("");
     const rests = plan.restaurants.map(r=>renderRest(r)).join("");
-    html += '<div class="card'+( isOpen?" open":"")+( isRainy?" rainy":"")+"">"+
+    html += '<div class="card'+( isOpen?" open":"")+( isRainy?" rainy":"")+'">'+
       '<div class="card-hdr" onclick="toggleDay('+day.day+')">'+
         '<div class="day-badge">Day '+day.day+"</div>"+
         '<div class="card-info"><span class="card-title">'+day.title+"</span>"+
@@ -954,7 +954,7 @@ function render(){
           "</div></div>"+
         '<div class="chev">▾</div>'+
       "</div>"+
-      '<div class="card-body'+( isOpen?" open":"")+"">"+
+      '<div class="card-body'+( isOpen?" open":"")+'">'+
         '<div class="body-inner">'+
           '<div class="wtog">'+
             '<button class="wbtn sunny'+( wx==="sunny"?" active":"")+'" onclick="setWx('+day.day+','+"'sunny'"+');event.stopPropagation()">☀️ 晴天</button>'+
